@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Güneş'i, katmanlarını, yüzey olaylarını ve Güneş gözlem görevlerini etkileşimli 3B model üzerinden keşfedin."
+    >
+
+    <title>
+        Güneş | Güneş Sistemini Keşfet
+    </title>
+
+
+    <!-- ==================================================
+         CSS
+    =================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/celestial.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/sun.css"
+    >
+
+
+    <!-- ==================================================
+         THREE.JS
+    =================================================== -->
+
+    <script type="importmap">
+
+        {
+            "imports": {
+
+                "three":
+                    "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+
+                "three/addons/":
+                    "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+
+            }
+        }
+
+    </script>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         GÜNEŞ SAYFASI
+    =================================================== -->
+
+    <main
+        class="celestial-page sun-page"
+        data-celestial-body="sun"
+    >
+
+
+        <!-- ==================================================
+             3B SAHNE
+        =================================================== -->
+
+        <section
+            id="sun-scene"
+            class="celestial-scene"
+            aria-label="Etkileşimli üç boyutlu Güneş modeli"
+        >
+        </section>
+
+
+        <!-- ==================================================
+             ÜST BAŞLIK
+        =================================================== -->
+
+        <header
+            class="celestial-header"
+        >
+
+            <a
+                href="../index.html"
+                class="celestial-brand"
+                aria-label="Güneş Sistemini Keşfet ana sayfasına dön"
+            >
+
+                <span
+                    class="brand-dot"
+                    aria-hidden="true"
+                >
+                </span>
+
+                <span>
+                    GÜNEŞ SİSTEMİNİ KEŞFET
+                </span>
+
+            </a>
+
+
+            <a
+                href="../index.html"
+                class="back-link"
+            >
+                ← Güneş Sistemi'ne dön
+            </a>
+
+        </header>
+
+
+        <!-- ==================================================
+             SOL BİLGİ PANELİ
+        =================================================== -->
+
+        <aside
+            id="info-panel"
+            class="celestial-info sun-info-panel"
+            aria-label="Güneş bilgi paneli"
+        >
+
+
+            <!-- ==============================================
+                 ÜST ÇİZGİ
+                 SABİT
+            =============================================== -->
+
+            <div
+                class="info-line sun-fixed-line"
+                aria-hidden="true"
+            >
+            </div>
+
+
+            <!-- ==============================================
+                 SADECE BURASI SCROLL OLACAK
+            =============================================== -->
+
+            <div
+                id="sun-info-scroll"
+                class="sun-info-scroll"
+            >
+
+
+                <div
+                    id="info-content"
+                    class="info-content sun-info-content"
+                    aria-live="polite"
+                >
+
+
+                    <!-- ==========================================
+                         GENEL GÜNEŞ BİLGİSİ
+                    =========================================== -->
+
+                    <p
+                        class="info-kicker"
+                    >
+                        GÜNEŞ SİSTEMİ · MERKEZ YILDIZ
+                    </p>
+
+
+                    <h1
+                        class="info-title"
+                    >
+                        Güneş
+                    </h1>
+
+
+                    <p
+                        class="info-lead"
+                    >
+
+                        Güneş, Güneş Sistemi'nin merkezinde bulunan
+                        yıldızdır. Sistemdeki toplam kütlenin yaklaşık
+                        %99,86'sını barındırır ve enerjisini çekirdeğinde
+                        gerçekleşen nükleer füzyondan üretir.
+
+                    </p>
+
+
+                    <!-- ==========================================
+                         HIZLI BİLGİLER
+                    =========================================== -->
+
+                    <div
+                        class="quick-stats"
+                    >
+
+
+                        <div
+                            class="quick-stat"
+                        >
+
+                            <span>
+                                Yaş
+                            </span>
+
+                            <strong>
+                                ≈ 4,6 milyar yıl
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="quick-stat"
+                        >
+
+                            <span>
+                                Çap
+                            </span>
+
+                            <strong>
+                                ≈ 1,39 milyon km
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="quick-stat"
+                        >
+
+                            <span>
+                                Kütle
+                            </span>
+
+                            <strong>
+                                1,989 × 10³⁰ kg
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="quick-stat"
+                        >
+
+                            <span>
+                                Fotosfer sıcaklığı
+                            </span>
+
+                            <strong>
+                                ≈ 5.500 °C
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="quick-stat"
+                        >
+
+                            <span>
+                                Çekirdek sıcaklığı
+                            </span>
+
+                            <strong>
+                                ≈ 15 milyon °C
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="quick-stat"
+                        >
+
+                            <span>
+                                Enerji kaynağı
+                            </span>
+
+                            <strong>
+                                Nükleer füzyon
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         ENERJİ
+                    =========================================== -->
+
+                    <section
+                        class="info-section"
+                    >
+
+                        <h2
+                            class="info-section-title"
+                        >
+                            Güneş nasıl enerji üretir?
+                        </h2>
+
+
+                        <p>
+
+                            Güneş'in çekirdeğinde hidrojen çekirdekleri
+                            birleşerek helyuma dönüşür. Bu süreç sırasında
+                            kütlenin küçük bir bölümü enerjiye dönüşür.
+                            Üretilen enerji dış katmanlara taşınır ve
+                            sonunda uzaya ışık ve ısı olarak yayılır.
+
+                        </p>
+
+                    </section>
+
+
+                    <!-- ==========================================
+                         KATMANLAR
+                    =========================================== -->
+
+                    <section
+                        class="info-section"
+                    >
+
+                        <h2
+                            class="info-section-title"
+                        >
+                            Güneş'in katmanları
+                        </h2>
+
+
+                        <p>
+
+                            Güneş'in iç yapısını 3B modelin içinde
+                            göstermiyoruz. Katmanları burada bilimsel
+                            bir kesit görseli ve açıklamalarla
+                            inceleyeceğiz.
+
+                        </p>
+
+
+                        <!-- ======================================
+                             GERÇEK GÖRSEL BURAYA GELECEK
+                        ======================================= -->
+
+                        <div
+                            class="sun-media-card"
+                        >
+
+                            <div
+                                class="sun-media-placeholder"
+                            >
+
+                                <span
+                                    class="sun-media-kicker"
+                                >
+                                    GÖRSEL
+                                </span>
+
+                                <strong>
+                                    Güneş'in katmanları
+                                </strong>
+
+                                <span>
+                                    NASA / bilimsel kesit görseli eklenecek
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ======================================
+                             KATMAN AÇIKLAMALARI
+                        ======================================= -->
+
+                        <div
+                            class="sun-layer-list"
+                        >
+
+
+                            <article
+                                class="sun-layer-item"
+                            >
+
+                                <span
+                                    class="sun-layer-index"
+                                >
+                                    01
+                                </span>
+
+                                <div>
+
+                                    <strong>
+                                        Çekirdek
+                                    </strong>
+
+                                    <p>
+                                        Güneş'in merkezindeki,
+                                        nükleer füzyonun gerçekleştiği
+                                        bölgedir.
+                                    </p>
+
+                                </div>
+
+                            </article>
+
+
+                            <article
+                                class="sun-layer-item"
+                            >
+
+                                <span
+                                    class="sun-layer-index"
+                                >
+                                    02
+                                </span>
+
+                                <div>
+
+                                    <strong>
+                                        Işınım Bölgesi
+                                    </strong>
+
+                                    <p>
+                                        Çekirdekte üretilen enerji bu
+                                        bölgede büyük ölçüde fotonların
+                                        etkileşimleriyle dışarı taşınır.
+                                    </p>
+
+                                </div>
+
+                            </article>
+
+
+                            <article
+                                class="sun-layer-item"
+                            >
+
+                                <span
+                                    class="sun-layer-index"
+                                >
+                                    03
+                                </span>
+
+                                <div>
+
+                                    <strong>
+                                        Konveksiyon Bölgesi
+                                    </strong>
+
+                                    <p>
+                                        Sıcak plazma yükselirken daha
+                                        soğuk plazma aşağı iner ve
+                                        enerji konveksiyonla taşınır.
+                                    </p>
+
+                                </div>
+
+                            </article>
+
+
+                            <article
+                                class="sun-layer-item"
+                            >
+
+                                <span
+                                    class="sun-layer-index"
+                                >
+                                    04
+                                </span>
+
+                                <div>
+
+                                    <strong>
+                                        Fotosfer
+                                    </strong>
+
+                                    <p>
+                                        Güneş'e baktığımızda görünür
+                                        yüzey olarak algıladığımız
+                                        katmandır.
+                                    </p>
+
+                                </div>
+
+                            </article>
+
+
+                            <article
+                                class="sun-layer-item"
+                            >
+
+                                <span
+                                    class="sun-layer-index"
+                                >
+                                    05
+                                </span>
+
+                                <div>
+
+                                    <strong>
+                                        Kromosfer
+                                    </strong>
+
+                                    <p>
+                                        Fotosferin üzerinde bulunan
+                                        ince atmosfer katmanlarından
+                                        biridir.
+                                    </p>
+
+                                </div>
+
+                            </article>
+
+
+                            <article
+                                class="sun-layer-item"
+                            >
+
+                                <span
+                                    class="sun-layer-index"
+                                >
+                                    06
+                                </span>
+
+                                <div>
+
+                                    <strong>
+                                        Korona
+                                    </strong>
+
+                                    <p>
+                                        Güneş atmosferinin çok sıcak,
+                                        seyrek ve uzaya doğru genişleyen
+                                        dış bölümüdür.
+                                    </p>
+
+                                </div>
+
+                            </article>
+
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- ==========================================
+                         YÜZEY OLAYLARI
+                    =========================================== -->
+
+                    <section
+                        class="info-section"
+                    >
+
+                        <h2
+                            class="info-section-title"
+                        >
+                            Güneş aktivitesi
+                        </h2>
+
+
+                        <p>
+
+                            Sonraki aşamada güneş lekeleri,
+                            güneş patlamaları ve prominensler
+                            doğrudan 3B model üzerinde
+                            seçilebilir hale gelecek.
+
+                        </p>
+
+
+                        <div
+                            class="sun-topic-row"
+                        >
+
+                            <span>
+                                GÜNEŞ LEKELERİ
+                            </span>
+
+                            <span>
+                                SOLAR FLARE
+                            </span>
+
+                            <span>
+                                PROMİNENS
+                            </span>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- ==========================================
+                         GÖZLEM ARAÇLARI
+                    =========================================== -->
+
+                    <section
+                        class="info-section"
+                    >
+
+                        <h2
+                            class="info-section-title"
+                        >
+                            Güneş gözlem görevleri
+                        </h2>
+
+
+                        <p>
+
+                            Parker Solar Probe, Solar Orbiter ve
+                            SOHO bu sahneye gerçek 3B modelleriyle
+                            eklenecek. Görev yollarını temsili
+                            daireler yerine gerçek görev geometrilerine
+                            göre oluşturacağız.
+
+                        </p>
+
+
+                        <div
+                            class="sun-mission-preview"
+                        >
+
+                            <div>
+                                <span>NASA</span>
+                                <strong>Parker Solar Probe</strong>
+                            </div>
+
+                            <div>
+                                <span>ESA / NASA</span>
+                                <strong>Solar Orbiter</strong>
+                            </div>
+
+                            <div>
+                                <span>ESA / NASA</span>
+                                <strong>SOHO</strong>
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- ==========================================
+                         DÜNYA KARŞILAŞTIRMA
+                    =========================================== -->
+
+                    <div
+                        class="info-actions"
+                    >
+
+                        <button
+                            id="compare-earth-button"
+                            class="primary-action"
+                            type="button"
+                        >
+                            DÜNYA İLE KARŞILAŞTIR
+                        </button>
+
+                    </div>
+
+
+                    <!-- Alt tarafta biraz nefes alanı -->
+
+                    <div
+                        class="sun-panel-end-space"
+                        aria-hidden="true"
+                    >
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- ==============================================
+                 SABİT SCROLL İŞARETİ
+
+                 HAREKET ETMİYOR.
+                 BEYAZ/MİNİMAL.
+            =============================================== -->
+
+            <div
+                class="sun-scroll-indicator"
+                aria-hidden="true"
+            >
+
+                <span
+                    class="sun-scroll-thumb"
+                >
+                </span>
+
+                <span
+                    class="sun-scroll-track"
+                >
+                </span>
+
+            </div>
+
+
+            <!-- ==============================================
+                 ALT ÇİZGİ
+                 SABİT
+            =============================================== -->
+
+            <div
+                class="info-line sun-fixed-line"
+                aria-hidden="true"
+            >
+            </div>
+
+
+        </aside>
+
+
+        <!-- ==================================================
+             SAHNE KONTROLLERİ
+        =================================================== -->
+
+        <div
+            class="scene-controls"
+            aria-hidden="true"
+        >
+
+            <span>
+
+                SÜRÜKLE
+
+                <strong>
+                    DÖNDÜR
+                </strong>
+
+            </span>
+
+
+            <span>
+
+                SCROLL
+
+                <strong>
+                    YAKLAŞ / UZAKLAŞ
+                </strong>
+
+            </span>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
+    <script
+        type="module"
+        src="../js/sun.js"
+    >
+    </script>
+
+
+</body>
+
+</html>

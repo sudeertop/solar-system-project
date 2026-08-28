@@ -1,0 +1,109 @@
+{
+    "craters": [
+        {
+            "name": "Tycho",
+            "latitude": -43.3,
+            "longitude": -11.2,
+            "diameter": 85,
+            "description": "Yaklaşık 108 milyon yıl yaşındaki Tycho, Ay'ın jeolojik açıdan genç kraterlerinden biridir. Çarpma sırasında yüzeyden savrulan malzemenin oluşturduğu parlak ışın sistemi binlerce kilometre boyunca uzanır ve dolunay sırasında Dünya'dan bile kolaylıkla seçilebilir."
+        },
+        {
+            "name": "Copernicus",
+            "latitude": 9.6,
+            "longitude": -20.1,
+            "diameter": 93,
+            "description": "Yaklaşık 800 milyon yıl önce oluşan Copernicus; basamaklı iç duvarları, merkez tepeleri ve çevresine yayılan parlak ışın sistemiyle Ay'ın en belirgin çarpma kraterlerinden biridir."
+        },
+        {
+            "name": "Aristarchus",
+            "latitude": 23.7,
+            "longitude": -47.4,
+            "diameter": 40,
+            "description": "Aristarchus, Ay'ın Dünya'ya bakan yüzündeki en parlak yapılardan biridir. Yüksek yansıtıcılığa sahip genç yüzeyi, çevresindeki daha koyu arazinin üzerinde güçlü bir kontrast oluşturur."
+        },
+        {
+            "name": "Plato",
+            "latitude": 51.6,
+            "longitude": -9.3,
+            "diameter": 109,
+            "description": "Plato, koyu ve oldukça düz tabanıyla kolayca ayırt edilir. Krater tabanını kaplayan bazaltik malzeme nedeniyle Dünya'dan bakıldığında Ay yüzeyindeki belirgin koyu bölgelerden biri gibi görünür."
+        },
+        {
+            "name": "Clavius",
+            "latitude": -58.4,
+            "longitude": -14.4,
+            "diameter": 231,
+            "description": "Clavius, Ay'ın güney yarımküresindeki en büyük ve en eski krater yapılarından biridir. Tabanında kavisli bir hat boyunca sıralanan daha küçük kraterler, yapının en ayırt edici özelliklerinden biridir."
+        },
+        {
+            "name": "Kepler",
+            "latitude": 8.1,
+            "longitude": -38.0,
+            "diameter": 32,
+            "description": "Kepler, görece küçük çapına rağmen oldukça belirgin bir kraterdir. Çevresindeki parlak ışın sistemi, yüzeyden savrulan malzemenin çarpma noktasından çok uzaklara taşındığını gösterir."
+        },
+        {
+            "name": "Ptolemaeus",
+            "latitude": -9.2,
+            "longitude": -1.8,
+            "diameter": 153,
+            "description": "Ptolemaeus oldukça eski ve aşınmış bir çarpma yapısıdır. Geniş, düz görünümlü tabanı ve zaman içinde bozulmuş dış duvarları, genç ve keskin kenarlı kraterlerden belirgin biçimde ayrılır."
+        },
+        {
+            "name": "Archimedes",
+            "latitude": 29.7,
+            "longitude": -4.0,
+            "diameter": 82,
+            "description": "Mare Imbrium'un doğu kesiminde bulunan Archimedes, geniş ve düz tabanlı bir kraterdir. İç bölgesinin daha sonra volkanik malzemelerle kaplanması, merkez tepesinin görünmemesine neden olmuştur."
+        },
+        {
+            "name": "Tsiolkovskiy",
+            "latitude": -20.4,
+            "longitude": 128.9,
+            "diameter": 184,
+            "description": "Ay'ın Dünya'dan görünmeyen uzak yüzündeki en dikkat çekici yapılardan biridir. Koyu renkli tabanı ve merkezindeki büyük tepe, çevresindeki daha açık renkli yüksek arazilerle güçlü bir kontrast oluşturur."
+        },
+        {
+            "name": "Schrödinger",
+            "latitude": -75.0,
+            "longitude": 132.4,
+            "diameter": 312,
+            "description": "Ay'ın güney kutbuna yakın bulunan Schrödinger, devasa bir çarpma havzasıdır. İç kısmındaki belirgin dağ halkası ve iyi korunmuş jeolojik yapısı nedeniyle Ay'ın geçmişini incelemek açısından önemli bir bölgedir."
+        },
+        {
+            "name": "Korolev",
+            "latitude": -4.2,
+            "longitude": -157.4,
+            "diameter": 437,
+            "description": "Korolev, Ay'ın uzak yüzündeki çok eski ve geniş bir çarpma havzasıdır. Uzun jeolojik geçmişi boyunca aldığı yeni darbeler nedeniyle yüzeyi çok sayıda daha küçük kraterle kaplanmıştır."
+        },
+        {
+            "name": "Jackson",
+            "latitude": 22.4,
+            "longitude": -163.1,
+            "diameter": 71,
+            "description": "Jackson, Ay'ın uzak yüzündeki genç ve parlak kraterlerden biridir. Çevresine yayılan geniş ışın sistemi nedeniyle görünüş bakımından Tycho'yu anımsatan dikkat çekici bir yapıdır."
+        },
+        {
+            "name": "Daedalus",
+            "latitude": -5.9,
+            "longitude": 179.4,
+            "diameter": 93,
+            "description": "Daedalus, Dünya'nın hemen hemen tam karşısında kalan uzak yüz bölgesinde bulunur. Ay'ın uzak yüzünün Dünya kaynaklı radyo gürültüsünden korunması nedeniyle bu bölge, gelecekte kurulabilecek radyo astronomi sistemleri açısından ilgi çekicidir."
+        },
+        {
+            "name": "Aitken",
+            "latitude": -16.8,
+            "longitude": 173.4,
+            "diameter": 135,
+            "description": "Aitken krateri, Ay'ın uzak yüzündeki Güney Kutbu-Aitken Havzası ile ilişkilendirilen önemli yapılardan biridir. Bu bölge, Ay'ın kabuğu ve erken çarpma geçmişinin araştırılmasında büyük bilimsel öneme sahiptir."
+        },
+        {
+            "name": "Apollo",
+            "latitude": -35.7,
+            "longitude": -151.5,
+            "diameter": 524,
+            "description": "Apollo, Ay'ın uzak yüzünün güney kesimindeki devasa ve çok halkalı eski bir çarpma havzasıdır. Milyarlarca yıl boyunca gerçekleşen daha küçük çarpmalar, havzanın yüzeyini yoğun biçimde değiştirmiştir."
+        }
+    ]
+}

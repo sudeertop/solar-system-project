@@ -1,0 +1,797 @@
+/* ======================================================
+   SUN.CSS
+
+   Ana tasarım:
+   global.css
+   celestial.css
+
+   Bu dosya yalnızca Güneş sayfasına özel
+   eklemeleri içerir.
+====================================================== */
+
+
+/* ======================================================
+   1. BİLGİ PANELİ
+
+   ÖNEMLİ:
+   Panelin kendisi scroll olmuyor.
+   İçindeki sun-info-scroll kayıyor.
+
+   Böylece üst ve alt info-line sabit kalıyor.
+====================================================== */
+
+.sun-page .sun-info-panel {
+
+    /* Satürn ile aynı sol hizası */
+    left:
+        80px;
+
+    /* Üst çizginin konumu */
+    top:
+        154px;
+
+    /* Alt çizginin konumu */
+    bottom:
+        86px;
+
+
+    /* ÇOK ÖNEMLİ:
+       celestial.css'ten gelen translateY(-50%)
+       Güneş panelini yukarı taşımasın. */
+    transform:
+        none !important;
+
+
+    /* Panel üst ve alt çizgi arasında sabit kalsın */
+    height:
+        auto;
+
+    max-height:
+        none;
+
+    min-height:
+        0;
+
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+
+    /* Panel değil, içindeki sun-info-scroll kayacak */
+    overflow:
+        hidden !important;
+
+}
+
+
+/* ======================================================
+   2. SABİT ÇİZGİLER
+====================================================== */
+
+.sun-page .sun-fixed-line {
+
+    flex:
+        0 0 auto;
+
+    position:
+        relative;
+
+    z-index:
+        5;
+
+    width:
+        100%;
+
+}
+
+
+/* ======================================================
+   3. SCROLL ALANI
+====================================================== */
+
+.sun-page .sun-info-scroll {
+
+    flex:
+        1 1 auto;
+
+    min-height:
+        0;
+
+    overflow-y:
+        auto;
+
+    overflow-x:
+        hidden;
+
+    overscroll-behavior:
+        contain;
+
+    scrollbar-width:
+        none;
+
+    -ms-overflow-style:
+        none;
+
+}
+
+
+/* Chrome / Edge */
+
+.sun-page
+.sun-info-scroll::-webkit-scrollbar {
+
+    width:
+        0;
+
+    height:
+        0;
+
+    display:
+        none;
+
+}
+
+
+/* ======================================================
+   4. İÇERİK
+====================================================== */
+
+.sun-page .sun-info-content {
+
+    padding-top:
+        22px;
+
+    padding-bottom:
+        18px;
+
+}
+
+
+/* ======================================================
+   5. SABİT SCROLL İŞARETİ
+
+   Senin istediğin:
+   - mavi değil
+   - ince beyaz
+   - üstünde minicik bar
+   - scroll yapınca hareket etmiyor
+====================================================== */
+
+.sun-page .sun-scroll-indicator {
+
+    position:
+        relative;
+
+    flex:
+        0 0 auto;
+
+    width:
+        100%;
+
+    height:
+        14px;
+
+    display:
+        flex;
+
+    align-items:
+        flex-end;
+
+    justify-content:
+        center;
+
+    pointer-events:
+        none;
+
+    opacity:
+        0.58;
+
+}
+
+
+/* Minik bar */
+
+.sun-page .sun-scroll-thumb {
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    top:
+        5px;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        26px;
+
+    height:
+        1px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+}
+
+
+/* İnce uzun çizgi */
+
+.sun-page .sun-scroll-track {
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    right:
+        0;
+
+    bottom:
+        4px;
+
+    height:
+        1px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.16
+        );
+
+}
+
+
+/* ======================================================
+   6. KATMAN GÖRSEL KARTI
+====================================================== */
+
+.sun-page .sun-media-card {
+
+    width:
+        100%;
+
+    margin-top:
+        18px;
+
+    margin-bottom:
+        22px;
+
+}
+
+
+.sun-page .sun-media-placeholder {
+
+    width:
+        100%;
+
+    aspect-ratio:
+        16 / 9;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    box-sizing:
+        border-box;
+
+    padding:
+        20px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.11
+        );
+
+    background:
+
+        radial-gradient(
+
+            circle at center,
+
+            rgba(
+                255,
+                184,
+                76,
+                0.10
+            ),
+
+            rgba(
+                255,
+                255,
+                255,
+                0.015
+            )
+            65%
+
+        );
+
+    text-align:
+        center;
+
+}
+
+
+.sun-page
+.sun-media-placeholder
+.sun-media-kicker {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.34
+        );
+
+    font-size:
+        8px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+.sun-page
+.sun-media-placeholder
+strong {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.90
+        );
+
+    font-size:
+        13px;
+
+    font-weight:
+        650;
+
+}
+
+
+.sun-page
+.sun-media-placeholder
+span:last-child {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.40
+        );
+
+    font-size:
+        9px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* ======================================================
+   7. KATMAN LİSTESİ
+====================================================== */
+
+.sun-page .sun-layer-list {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    margin-top:
+        8px;
+
+}
+
+
+.sun-page .sun-layer-item {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        28px
+        minmax(
+            0,
+            1fr
+        );
+
+    gap:
+        12px;
+
+    padding:
+        14px
+        0;
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.07
+        );
+
+}
+
+
+.sun-page
+.sun-layer-item:last-child {
+
+    border-bottom:
+        0;
+
+}
+
+
+/* Numara */
+
+.sun-page .sun-layer-index {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.25
+        );
+
+    font-size:
+        8px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.10em;
+
+    padding-top:
+        2px;
+
+}
+
+
+/* Katman başlığı */
+
+.sun-page
+.sun-layer-item
+strong {
+
+    display:
+        block;
+
+    margin-bottom:
+        5px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.93
+        );
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+}
+
+
+/* Katman açıklaması */
+
+.sun-page
+.sun-layer-item
+p {
+
+    margin:
+        0;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.56
+        );
+
+    font-size:
+        10px;
+
+    line-height:
+        1.6;
+
+}
+
+
+/* ======================================================
+   8. GÜNEŞ AKTİVİTESİ SATIRI
+====================================================== */
+
+.sun-page .sun-topic-row {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        6px;
+
+    margin-top:
+        16px;
+
+}
+
+
+.sun-page
+.sun-topic-row
+span {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    min-height:
+        26px;
+
+    padding:
+        0
+        9px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.10
+        );
+
+    border-radius:
+        999px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.54
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+
+    font-size:
+        7px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.08em;
+
+}
+
+
+/* ======================================================
+   9. GÖREV ÖNİZLEME
+====================================================== */
+
+.sun-page .sun-mission-preview {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    margin-top:
+        16px;
+
+}
+
+
+.sun-page
+.sun-mission-preview
+> div {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        3px;
+
+    padding:
+        11px
+        0;
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.07
+        );
+
+}
+
+
+.sun-page
+.sun-mission-preview
+> div:last-child {
+
+    border-bottom:
+        0;
+
+}
+
+
+.sun-page
+.sun-mission-preview
+span {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.28
+        );
+
+    font-size:
+        7px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.12em;
+
+}
+
+
+.sun-page
+.sun-mission-preview
+strong {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.78
+        );
+
+    font-size:
+        10px;
+
+    font-weight:
+        650;
+
+}
+
+
+/* ======================================================
+   10. BUTTON ALTI BOŞLUK
+
+   Buton panelin altında kesilmesin.
+====================================================== */
+
+.sun-page .info-actions {
+
+    overflow:
+        visible !important;
+
+    margin-bottom:
+        8px;
+
+    padding-bottom:
+        4px;
+
+}
+
+
+.sun-page .primary-action {
+
+    flex-shrink:
+        0;
+
+}
+
+
+/* ======================================================
+   11. PANEL SONU
+====================================================== */
+
+.sun-page .sun-panel-end-space {
+
+    width:
+        100%;
+
+    height:
+        6px;
+
+}
+
+
+/* ======================================================
+   12. DAR EKRAN
+====================================================== */
+
+@media
+(
+    max-width:
+        900px
+) {
+
+    .sun-page .sun-info-content {
+
+        padding-top:
+            16px;
+
+    }
+
+
+    .sun-page .sun-scroll-indicator {
+
+        height:
+            15px;
+
+    }
+
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Ay Keşif Modu | Güneş Sistemini Keşfet</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/celestial.css"
+    >
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+        }
+    }
+    </script>
+
+</head>
+
+
+<body>
+
+    <main class="celestial-page moon-page">
+
+
+        <!-- ==================================================
+             3B SAHNE
+        =================================================== -->
+
+        <section
+            id="moon-scene"
+            class="celestial-scene"
+            aria-label="Etkileşimli üç boyutlu Ay modeli"
+        ></section>
+
+
+
+        <!-- ==================================================
+             ÜST MENÜ
+        =================================================== -->
+
+        <header class="celestial-header">
+
+            <div class="header-brand">
+
+                <span class="header-dot"></span>
+
+                <span>
+                    GÜNEŞ SİSTEMİNİ KEŞFET
+                </span>
+
+            </div>
+
+
+            <a
+                href="../index.html"
+                class="back-button"
+            >
+                ← Güneş Sistemi'ne dön
+            </a>
+
+        </header>
+
+
+
+        <!-- ==================================================
+             SOL BİLGİ PANELİ
+        =================================================== -->
+
+        <aside
+            id="info-panel"
+            class="celestial-info"
+        >
+
+            <div class="info-line"></div>
+
+
+            <div
+                id="info-content"
+                class="info-content"
+                aria-live="polite"
+            >
+                <!-- JS tarafından doldurulacak -->
+            </div>
+
+
+            <div class="info-line"></div>
+
+        </aside>
+
+
+
+        <!-- ==================================================
+             KULLANIM BİLGİSİ
+        =================================================== -->
+
+        <div class="scene-controls">
+
+            <span>
+                Sürükle
+                <strong>Döndür</strong>
+            </span>
+
+            <span>
+                Scroll
+                <strong>Yaklaş / Uzaklaş</strong>
+            </span>
+
+            <span>
+                Nokta
+                <strong>Krateri keşfet</strong>
+            </span>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             KARŞILAŞTIRMA MODU ETİKETLERİ
+        =================================================== -->
+
+        <div
+            id="compare-labels"
+            class="compare-labels"
+            aria-hidden="true"
+        >
+
+            <div class="compare-object-label moon-label">
+                AY
+            </div>
+
+            <div class="compare-object-label earth-label">
+                DÜNYA
+            </div>
+
+        </div>
+
+
+        <!-- YÜKLEME MESAJI -->
+
+        <div
+            id="loading-message"
+            class="loading-message"
+        >
+            Ay modeli yükleniyor...
+        </div>
+
+
+    </main>
+
+
+    <script
+        type="module"
+        src="../js/moon.js"
+    ></script>
+
+</body>
+
+</html>

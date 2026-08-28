@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Satürn'ü, halka sistemini ve doğal uydularını etkileşimli 3B model üzerinden keşfedin."
+    >
+
+
+    <title>
+        Satürn | Güneş Sistemini Keşfet
+    </title>
+
+
+    <!-- ==================================================
+         CSS
+    =================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/celestial.css"
+    >
+
+
+    <!-- ==================================================
+         THREE.JS IMPORT MAP
+    =================================================== -->
+
+    <script type="importmap">
+
+        {
+            "imports": {
+
+                "three":
+                    "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+
+                "three/addons/":
+                    "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+
+            }
+        }
+
+    </script>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         SATÜRN SAYFASI
+    =================================================== -->
+
+    <main
+        class="celestial-page saturn-page"
+        data-celestial-body="saturn"
+    >
+
+
+        <!-- ==================================================
+             3B SAHNE
+        =================================================== -->
+
+        <section
+            id="saturn-scene"
+            class="celestial-scene"
+            aria-label="Etkileşimli üç boyutlu Satürn modeli"
+        >
+        </section>
+
+
+        <!-- ==================================================
+             ÜST BAŞLIK
+        =================================================== -->
+
+        <header
+            class="celestial-header"
+        >
+
+            <a
+                href="../index.html"
+                class="celestial-brand"
+                aria-label="Güneş Sistemini Keşfet ana sayfasına dön"
+            >
+
+                <span
+                    class="brand-dot"
+                    aria-hidden="true"
+                >
+                </span>
+
+                <span>
+                    GÜNEŞ SİSTEMİNİ KEŞFET
+                </span>
+
+            </a>
+
+
+            <a
+                href="../index.html"
+                class="back-link"
+            >
+
+                ← Güneş Sistemi'ne dön
+
+            </a>
+
+        </header>
+
+
+        <!-- ==================================================
+             SOL BİLGİ PANELİ
+        =================================================== -->
+
+        <aside
+            id="info-panel"
+            class="celestial-info"
+            aria-label="Satürn bilgi paneli"
+        >
+
+            <div
+                class="info-line"
+                aria-hidden="true"
+            >
+            </div>
+
+
+            <div
+                id="info-content"
+                class="info-content"
+                aria-live="polite"
+            >
+
+
+                <!-- ==========================================
+                     GENEL BİLGİ
+                =========================================== -->
+
+                <p
+                    class="info-kicker"
+                >
+
+                    GÜNEŞ SİSTEMİ · 6. GEZEGEN
+
+                </p>
+
+
+                <h1
+                    class="info-title"
+                >
+
+                    Satürn
+
+                </h1>
+
+
+                <p
+                    class="info-lead"
+                >
+
+                    Satürn, Güneş Sistemi'nin ikinci en büyük
+                    gezegeni ve geniş halka sistemiyle en kolay
+                    ayırt edilen gaz devidir.
+
+                    Büyük ölçüde hidrojen ve helyumdan oluşur;
+                    katı bir yüzeyi yoktur.
+
+                </p>
+
+
+                <!-- ==========================================
+                     HIZLI BİLGİLER
+                =========================================== -->
+
+                <div
+                    class="quick-stats"
+                >
+
+
+                    <div
+                        class="quick-stat"
+                    >
+
+                        <span>
+                            Ekvator çapı
+                        </span>
+
+                        <strong>
+                            ≈ 120.536 km
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="quick-stat"
+                    >
+
+                        <span>
+                            Güneş'e uzaklık
+                        </span>
+
+                        <strong>
+                            ≈ 1,4 milyar km
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="quick-stat"
+                    >
+
+                        <span>
+                            Ortalama uzaklık
+                        </span>
+
+                        <strong>
+                            ≈ 9,5 AU
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="quick-stat"
+                    >
+
+                        <span>
+                            Bir Satürn günü
+                        </span>
+
+                        <strong>
+                            ≈ 10,7 saat
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="quick-stat"
+                    >
+
+                        <span>
+                            Bir Satürn yılı
+                        </span>
+
+                        <strong>
+                            ≈ 29,4 Dünya yılı
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="quick-stat"
+                    >
+
+                        <span>
+                            Eksen eğikliği
+                        </span>
+
+                        <strong>
+                            26,73°
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- ==========================================
+                     HALKALAR
+                =========================================== -->
+
+                <section
+                    class="info-section"
+                >
+
+                    <h2
+                        class="info-section-title"
+                    >
+
+                        Halkaları neyden oluşuyor?
+
+                    </h2>
+
+
+                    <p>
+
+                        Satürn'ün halkaları tek parça katı diskler
+                        değildir.
+
+                        Halka sistemi, gezegenin çevresinde
+                        birbirinden bağımsız yörüngelerde hareket
+                        eden çok sayıda buz, kaya ve toz
+                        parçacığından oluşur.
+
+                    </p>
+
+                </section>
+
+
+                <!-- ==========================================
+                     HALKA YAPISI
+                =========================================== -->
+
+                <section
+                    class="info-section"
+                >
+
+                    <h2
+                        class="info-section-title"
+                    >
+
+                        Tek bir halka mı?
+
+                    </h2>
+
+
+                    <p>
+
+                        Hayır. Satürn'ün halka sistemi çok sayıda
+                        ince halkacık ve boşluktan oluşur.
+
+                        En belirgin ana bölgeler arasında
+                        C, B ve A halkaları bulunur.
+
+                        A ve B halkalarının arasında ise
+                        Cassini Bölümü yer alır.
+
+                    </p>
+
+                </section>
+
+
+                <!-- ==========================================
+                     ETKİLEŞİM
+                =========================================== -->
+
+                <section
+                    class="info-section"
+                >
+
+                    <h2
+                        class="info-section-title"
+                    >
+
+                        Halkaları keşfet
+
+                    </h2>
+
+
+                    <p>
+
+                        3B modelde bir halka bölgesine
+                        tıklayabilir veya halka seçim
+                        panelini kullanabilirsin.
+
+                        Seçilen bölgenin sınırları
+                        model üzerinde vurgulanacak ve
+                        bilgileri bu panelde gösterilecek.
+
+                    </p>
+
+                </section>
+
+
+                <!-- ==========================================
+                     DÜNYA KARŞILAŞTIRMASI
+                =========================================== -->
+
+                <div
+                    class="info-actions"
+                >
+
+                    <button
+                        id="compare-earth-button"
+                        class="primary-action"
+                        type="button"
+                    >
+
+                        DÜNYA İLE KARŞILAŞTIR
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+            <div
+                class="info-line"
+                aria-hidden="true"
+            >
+            </div>
+
+        </aside>
+
+
+        <!-- ==================================================
+             HALKA SEÇİM PANELİ
+        =================================================== -->
+
+        <nav
+            id="ring-selector"
+            class="ring-selector"
+            aria-label="Satürn halka bölgeleri"
+        >
+
+            <span
+                class="ring-selector-title"
+            >
+
+                HALKALAR
+
+            </span>
+
+
+            <button
+                type="button"
+                class="ring-selector-button"
+                data-ring="c"
+                aria-label="C Halkasını incele"
+                aria-pressed="false"
+            >
+
+                C
+
+            </button>
+
+
+            <button
+                type="button"
+                class="ring-selector-button"
+                data-ring="b"
+                aria-label="B Halkasını incele"
+                aria-pressed="false"
+            >
+
+                B
+
+            </button>
+
+
+            <button
+                type="button"
+                class="ring-selector-button"
+                data-ring="cassini"
+                aria-label="Cassini Bölümünü incele"
+                aria-pressed="false"
+            >
+
+                CASSINI
+
+            </button>
+
+
+            <button
+                type="button"
+                class="ring-selector-button"
+                data-ring="a"
+                aria-label="A Halkasını incele"
+                aria-pressed="false"
+            >
+
+                A
+
+            </button>
+
+
+            <button
+                type="button"
+                class="ring-selector-button"
+                data-ring="f"
+                aria-label="F Halkasını incele"
+                aria-pressed="false"
+            >
+
+                F
+
+            </button>
+
+        </nav>
+
+
+        <!-- ==================================================
+             SAHNE KONTROLLERİ
+        =================================================== -->
+
+        <div
+            class="scene-controls"
+            aria-hidden="true"
+        >
+
+            <span>
+
+                SÜRÜKLE
+
+                <strong>
+                    DÖNDÜR
+                </strong>
+
+            </span>
+
+
+            <span>
+
+                SCROLL
+
+                <strong>
+                    YAKLAŞ / UZAKLAŞ
+                </strong>
+
+            </span>
+
+        </div>
+
+
+        <!-- ==================================================
+             MODEL YÜKLENİYOR
+        =================================================== -->
+
+        <div
+            id="loading-message"
+            class="loading-message"
+            role="status"
+            aria-live="polite"
+        >
+
+            Satürn modeli yükleniyor...
+
+        </div>
+
+
+    </main>
+
+
+    <!-- ==================================================
+         SATURN.JS
+    =================================================== -->
+    <!--
+        Normal <script src=""> yerine dynamic import
+        kullanıyorum.
+
+        Böylece saturn.js hata verirse Console açamasan
+        bile hata sayfanın altında kırmızı kutuda görünecek.
+    -->
+
+
+    <script type="module">
+
+        import("../js/saturn.js")
+
+            .catch(
+
+                (error) => {
+
+                    console.error(
+                        "Saturn.js yükleme hatası:",
+                        error
+                    );
+
+
+                    const oldErrorBox =
+                        document.getElementById(
+                            "saturn-error-box"
+                        );
+
+
+                    oldErrorBox?.remove();
+
+
+                    const errorBox =
+                        document.createElement(
+                            "pre"
+                        );
+
+
+                    errorBox.id =
+                        "saturn-error-box";
+
+
+                    Object.assign(
+
+                        errorBox.style,
+
+                        {
+
+                            position:
+                                "fixed",
+
+                            left:
+                                "20px",
+
+                            right:
+                                "20px",
+
+                            bottom:
+                                "20px",
+
+                            maxHeight:
+                                "40vh",
+
+                            overflow:
+                                "auto",
+
+                            zIndex:
+                                "999999",
+
+                            padding:
+                                "20px",
+
+                            margin:
+                                "0",
+
+                            background:
+                                "rgba(70, 0, 0, 0.96)",
+
+                            color:
+                                "#ffffff",
+
+                            border:
+                                "2px solid #ff4d4d",
+
+                            borderRadius:
+                                "10px",
+
+                            fontFamily:
+                                "monospace",
+
+                            fontSize:
+                                "14px",
+
+                            lineHeight:
+                                "1.5",
+
+                            whiteSpace:
+                                "pre-wrap",
+
+                            boxShadow:
+                                "0 20px 60px rgba(0,0,0,0.6)"
+
+                        }
+
+                    );
+
+
+                    errorBox.textContent =
+
+                        "SATURN.JS HATASI\n\n"
+
+                        +
+
+                        "Tür: "
+                        +
+                        (
+                            error?.name
+                            ||
+                            "Bilinmeyen hata"
+                        )
+
+                        +
+
+                        "\n\nMesaj:\n"
+
+                        +
+
+                        (
+                            error?.message
+                            ||
+                            String(error)
+                        )
+
+                        +
+
+                        "\n\nDetay:\n"
+
+                        +
+
+                        (
+                            error?.stack
+                            ||
+                            "Stack bilgisi yok."
+                        );
+
+
+                    document.body.appendChild(
+                        errorBox
+                    );
+
+                }
+
+            );
+
+    </script>
+
+
+</body>
+
+</html>
+

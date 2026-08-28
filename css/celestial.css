@@ -1,0 +1,1016 @@
+/* =========================================================
+   CELESTIAL PAGES
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    overflow: hidden;
+    background: #02040a;
+    color: #ffffff;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.celestial-page {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 65% 45%,
+            #0a1020 0%,
+            #030711 35%,
+            #02040a 70%
+        );
+}
+
+
+/* =========================================================
+   THREE JS SCENE
+========================================================= */
+
+.celestial-scene {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+.celestial-scene canvas {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    outline: none;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.celestial-header {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    z-index: 30;
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding:
+        28px
+        44px;
+
+    pointer-events: none;
+}
+
+
+.header-brand {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+}
+
+
+.header-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+}
+
+
+.back-button {
+    pointer-events: auto;
+
+    color: rgba(255, 255, 255, 0.8);
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    letter-spacing: 0.04em;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.back-button:hover {
+    color: #ffffff;
+
+    transform:
+        translateX(-4px);
+}
+
+
+/* =========================================================
+   LEFT INFORMATION PANEL
+========================================================= */
+
+.celestial-info {
+    position: absolute;
+
+    z-index: 25;
+
+    left: clamp(
+        28px,
+        5vw,
+        82px
+    );
+
+    top: 50%;
+
+    transform:
+        translateY(-46%);
+
+    width: min(
+        390px,
+        31vw
+    );
+
+    max-height: 72vh;
+
+    overflow-y: auto;
+
+    padding-right: 10px;
+
+    pointer-events: auto;
+
+    scrollbar-width: none;
+}
+
+.celestial-info::-webkit-scrollbar {
+    display: none;
+}
+
+
+.info-line {
+    width: 100%;
+    height: 1px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.75
+        );
+}
+
+
+.info-content {
+    padding:
+        25px
+        0
+        27px;
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.info-kicker {
+    margin:
+        0
+        0
+        10px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.48
+        );
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+
+    text-transform: uppercase;
+}
+
+
+.info-title {
+    margin:
+        0
+        0
+        13px;
+
+    font-size:
+        clamp(
+            30px,
+            3.2vw,
+            48px
+        );
+
+    font-weight: 600;
+
+    line-height: 0.95;
+
+    letter-spacing: -0.04em;
+}
+
+
+.info-lead {
+    max-width: 360px;
+
+    margin:
+        0
+        0
+        25px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+    font-size: 13px;
+
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   QUICK STATS
+========================================================= */
+
+.quick-stats {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:
+        17px
+        22px;
+
+    margin:
+        0
+        0
+        26px;
+}
+
+
+.quick-stat span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.38
+        );
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+}
+
+
+.quick-stat strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   INFORMATION SECTIONS
+========================================================= */
+
+.info-section {
+    margin-top: 22px;
+}
+
+
+.info-section-title {
+    margin:
+        0
+        0
+        8px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.92
+        );
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+
+.info-section p {
+    margin: 0;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.62
+        );
+
+    font-size: 12px;
+
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.info-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 27px;
+}
+
+
+.primary-action,
+.secondary-action {
+    min-height: 42px;
+
+    padding:
+        0
+        17px;
+
+    border-radius: 999px;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.primary-action {
+    border:
+        1px solid
+        #ffffff;
+
+    background:
+        #ffffff;
+
+    color:
+        #05070c;
+}
+
+
+.primary-action:hover {
+    transform:
+        translateY(-2px);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.86
+        );
+}
+
+
+.primary-action:disabled {
+    opacity: 0.4;
+
+    cursor: wait;
+
+    transform: none;
+}
+
+
+.secondary-action {
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.25
+        );
+
+    background:
+        transparent;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.8
+        );
+}
+
+
+.secondary-action:hover {
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.7
+        );
+
+    color:
+        #ffffff;
+}
+
+
+/* =========================================================
+   CRATER DETAILS
+========================================================= */
+
+.crater-coordinate {
+    margin-top: 4px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.42
+        );
+
+    font-size: 10px;
+
+    letter-spacing: 0.04em;
+}
+
+
+/* =========================================================
+   COMPARISON TABLE
+========================================================= */
+
+.compare-table {
+    width: 100%;
+
+    margin-top: 20px;
+
+    border-collapse: collapse;
+
+    font-size: 11px;
+}
+
+
+.compare-table th,
+.compare-table td {
+    padding:
+        10px
+        5px;
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
+
+    text-align: left;
+
+    vertical-align: top;
+}
+
+
+.compare-table th {
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.38
+        );
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+
+.compare-table td {
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.77
+        );
+}
+
+
+.compare-table td:first-child {
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.4
+        );
+}
+
+
+.compare-table strong {
+    color: #ffffff;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   BOTTOM CONTROLS
+========================================================= */
+
+.scene-controls {
+    position: absolute;
+
+    z-index: 20;
+
+    right: 42px;
+    bottom: 28px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 24px;
+
+    pointer-events: none;
+}
+
+
+.scene-controls span {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.34
+        );
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.07em;
+
+    text-transform: uppercase;
+}
+
+
+.scene-controls strong {
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+    font-size: 9px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   COMPARE LABELS
+========================================================= */
+
+.compare-labels {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 15;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    transition:
+        opacity
+        0.35s ease;
+}
+
+
+.compare-labels.visible {
+    opacity: 1;
+}
+
+
+.compare-object-label {
+    position: absolute;
+
+    bottom: 42px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+}
+
+
+.moon-label {
+    left: 49%;
+}
+
+
+.earth-label {
+    left: 72%;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading-message {
+    position: absolute;
+
+    z-index: 40;
+
+    left: 65%;
+    top: 50%;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        );
+
+    padding:
+        11px
+        15px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
+
+    border-radius: 999px;
+
+    background:
+        rgba(
+            2,
+            4,
+            10,
+            0.75
+        );
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+    font-size: 10px;
+
+    letter-spacing: 0.08em;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .celestial-header {
+        padding:
+            20px
+            22px;
+    }
+
+
+    .header-brand {
+        font-size: 9px;
+    }
+
+
+    .celestial-info {
+        left: 22px;
+
+        top: auto;
+        bottom: 80px;
+
+        transform: none;
+
+        width:
+            calc(
+                100% - 44px
+            );
+
+        max-height: 42vh;
+    }
+
+
+    .info-title {
+        font-size: 30px;
+    }
+
+
+    .scene-controls {
+        right: 20px;
+        bottom: 20px;
+
+        gap: 12px;
+    }
+
+
+    .scene-controls span {
+        display: none;
+    }
+
+}
+#compare-earth-button {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
+#compare-earth-button:hover {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+/* =====================================================
+   CELESTIAL HEADER
+===================================================== */
+
+.celestial-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 50;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 28px 46px;
+
+    pointer-events: none;
+}
+
+
+.celestial-brand,
+.back-link {
+    pointer-events: auto;
+
+    text-decoration: none;
+
+    color: rgba(
+        255,
+        255,
+        255,
+        0.72
+    );
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+.celestial-brand {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+
+    text-transform: uppercase;
+
+    transition:
+        color 160ms ease,
+        opacity 160ms ease;
+}
+
+
+.celestial-brand:hover {
+    color: #ffffff;
+}
+
+
+.brand-dot {
+    width: 5px;
+    height: 5px;
+
+    flex: 0 0 auto;
+
+    border-radius: 50%;
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.78
+    );
+}
+
+
+.back-link {
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.06em;
+
+    opacity: 0.65;
+
+    transition:
+        opacity 160ms ease,
+        color 160ms ease;
+}
+
+
+.back-link:hover {
+    color: #ffffff;
+    opacity: 1;
+}
+
+
+@media (
+    max-width: 900px
+) {
+
+    .celestial-header {
+        padding:
+            20px
+            22px;
+    }
+
+}
+/* =====================================================
+   SATURN - SOL PANEL KESİLME DÜZELTMESİ
+===================================================== */
+
+.saturn-page .celestial-info {
+    max-height: calc(100vh - 120px) !important;
+
+    overflow-y: auto !important;
+    overflow-x: visible !important;
+
+    padding-bottom: 32px !important;
+}
+
+
+.saturn-page .info-content {
+    overflow: visible !important;
+
+    padding-bottom: 32px !important;
+}
+
+
+.saturn-page .info-actions {
+    display: flex !important;
+
+    align-items: center !important;
+
+    overflow: visible !important;
+
+    min-height: 52px !important;
+
+    margin-top: 22px !important;
+
+    margin-bottom: 20px !important;
+
+    padding-bottom: 8px !important;
+}
+
+
+.saturn-page #compare-earth-button {
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    height: 42px !important;
+    min-height: 42px !important;
+
+    padding: 0 22px !important;
+
+    line-height: 42px !important;
+
+    flex-shrink: 0 !important;
+
+    overflow: visible !important;
+}
