@@ -1,0 +1,175 @@
+@import "./theme.css";
+
+/* ------------------------------------------------------------------
+   index.html — entrance. Composition over content.
+------------------------------------------------------------------ */
+
+.entrance {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(22px, 3vw, 40px) var(--pad);
+}
+
+#backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+}
+
+.entrance > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- masthead ------------------------------------------------------ */
+
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.masthead__mark {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+/* --- hero ----------------------------------------------------------- */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 20ch;
+}
+
+.hero__kicker {
+  margin: 0 0 clamp(18px, 2.4vw, 30px);
+}
+
+.hero__title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(46px, 8.2vw, 132px);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.hero__title em {
+  font-style: normal;
+  color: var(--fg-dim);
+}
+
+.hero__lead {
+  margin: clamp(22px, 3vw, 34px) 0 0;
+  max-width: 46ch;
+  font-size: clamp(14px, 1.15vw, 16.5px);
+  line-height: 1.7;
+  color: var(--fg-dim);
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 48px);
+  margin-top: clamp(32px, 4.2vw, 54px);
+  flex-wrap: wrap;
+}
+
+/* --- footer index --------------------------------------------------- */
+
+.colophon {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.colophon__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
+.colophon__note {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  text-align: right;
+}
+
+/* fade-in on load: one gesture, once */
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: rise 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.reveal:nth-child(1) {
+  animation-delay: 60ms;
+}
+.hero__title {
+  animation-delay: 140ms;
+}
+.hero__lead {
+  animation-delay: 260ms;
+}
+.hero__actions {
+  animation-delay: 380ms;
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    max-width: none;
+  }
+  .colophon__list,
+  .colophon__note {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+  }
+  .colophon {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .colophon__note {
+    text-align: left;
+  }
+}

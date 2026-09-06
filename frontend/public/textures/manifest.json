@@ -1,0 +1,4 @@
+{
+  "$comment": "Buraya eklediğiniz texture dosyalarının adlarını (uzantısız) listeleyin. Örn: [\"earth\", \"mars\"]. Liste boşken prosedürel yüzeyler kullanılır.",
+  "textures": []
+}

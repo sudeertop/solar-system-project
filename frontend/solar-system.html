@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Güneş Sistemi — Etkileşimli 3B Sahne</title>
+    <meta
+      name="description"
+      content="Etkileşimli 3B Güneş Sistemi: gezegenleri seçin, verilerini okuyun, ayrıntılı keşif modüllerine geçin."
+    />
+    <link rel="stylesheet" href="/src/site/solar-system.css" />
+  </head>
+  <body>
+    <div class="stage">
+      <aside class="panel" aria-label="Bilgi paneli">
+        <div class="panel__top">
+          <a class="panel__brand" href="/" data-testid="home-link">Güneş Sistemi'ni Keşfet</a>
+          <button
+            type="button"
+            id="panel-reset"
+            class="btn btn--quiet"
+            data-testid="panel-reset-button"
+          >
+            Genel
+          </button>
+        </div>
+
+        <div class="panel__scroll">
+          <div id="panel-body" data-testid="panel-body"></div>
+        </div>
+
+        <div class="panel__foot">
+          <span class="kicker">Modül 02</span>
+          <a class="btn btn--quiet" href="/space101.html" data-testid="space101-link">Uzay 101</a>
+        </div>
+      </aside>
+
+      <div class="viewport">
+        <canvas id="scene" data-testid="scene-canvas"></canvas>
+        <div id="labels"></div>
+
+        <div class="chrome chrome--top">
+          <span class="legend"><b>Sürükle</b> döndür &nbsp;·&nbsp; <b>Tekerlek</b> yakınlaş</span>
+        </div>
+
+        <div class="chrome chrome--bottom">
+          <div class="legend">
+            <div>Nokta — panelde açılır</div>
+            <div>↗ — ayrıntılı keşif modülü</div>
+          </div>
+          <p class="note" id="scale-note" hidden>
+            Yarıçaplar ve yörünge yarıçapları okunabilirlik için sıkıştırılmıştır. Görselleştirme
+            ölçekli değildir.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/site/solar-system.js"></script>
+  </body>
+</html>

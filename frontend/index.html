@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Güneş Sistemi'ni Keşfet</title>
+    <meta
+      name="description"
+      content="Güneş Sistemi'ni etkileşimli 3B olarak keşfedin: gezegenler, uydular ve temel astronomi bilgileri."
+    />
+    <link rel="stylesheet" href="/src/site/entrance.css" />
+  </head>
+  <body>
+    <canvas id="backdrop" aria-hidden="true"></canvas>
+
+    <main class="entrance">
+      <header class="masthead reveal">
+        <span class="masthead__mark">Etkileşimli Astronomi Modülü</span>
+        <span class="masthead__mark">01 — Giriş</span>
+      </header>
+
+      <section class="hero">
+        <p class="kicker hero__kicker">Güneş Sistemi</p>
+        <h1 class="hero__title">Güneş Sistemi'ni <em>Keşfet</em></h1>
+        <p class="hero__lead">
+          Sekiz gezegen, Ay ve Güneş — hepsi tek bir sahnede. Yörüngeleri döndürün, bir gök cismi
+          seçin, verilerini okuyun.
+        </p>
+        <div class="hero__actions">
+          <a class="btn" href="/solar-system.html" data-testid="start-button">
+            Başla <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn--quiet" href="/space101.html" data-testid="entrance-space101-link">
+            Uzay 101
+          </a>
+        </div>
+      </section>
+
+      <footer class="colophon">
+        <ul class="colophon__list">
+          <li>Güneş</li>
+          <li>Merkür</li>
+          <li>Venüs</li>
+          <li>Dünya</li>
+          <li>Ay</li>
+          <li>Mars</li>
+          <li>Jüpiter</li>
+          <li>Satürn</li>
+          <li>Uranüs</li>
+          <li>Neptün</li>
+        </ul>
+        <p class="colophon__note">
+          Mesafeler ve boyutlar<br />görsel olarak sıkıştırılmıştır
+        </p>
+      </footer>
+    </main>
+
+    <script type="module" src="/src/site/entrance.js"></script>
+  </body>
+</html>

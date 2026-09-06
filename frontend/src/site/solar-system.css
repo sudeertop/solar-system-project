@@ -1,0 +1,344 @@
+@import "./theme.css";
+
+/* ------------------------------------------------------------------
+   solar-system.html — the scene is the page; the interface is trim.
+------------------------------------------------------------------ */
+
+.stage {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+}
+
+#scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+/* --- left information panel -------------------------------------- */
+
+.panel {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid var(--line);
+  background: linear-gradient(90deg, rgba(5, 6, 10, 0.96) 60%, rgba(5, 6, 10, 0.78) 100%);
+  backdrop-filter: blur(6px);
+}
+
+.panel__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 26px 30px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.panel__brand {
+  font-family: var(--display);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--fg);
+}
+
+.panel__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 34px 30px 40px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+
+.panel__scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.panel__scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.panel__title {
+  font-family: var(--display);
+  font-size: 42px;
+  font-weight: 500;
+  letter-spacing: -0.028em;
+  line-height: 1.02;
+  margin: 14px 0 0;
+}
+
+.panel__lead {
+  margin: 18px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #c3c8d2;
+  max-width: 34ch;
+}
+
+.stats {
+  margin: 32px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.stats__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.stats__row dt {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  white-space: nowrap;
+}
+
+.stats__row dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg);
+  text-align: right;
+}
+
+.panel__sections {
+  margin-top: 34px;
+}
+
+.panel__section + .panel__section {
+  margin-top: 24px;
+}
+
+.panel__h3 {
+  margin: 0 0 7px;
+  font-family: var(--display);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  color: var(--fg);
+}
+
+.panel__p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--fg-dim);
+}
+
+.panel__hint {
+  margin: 34px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--fg-faint);
+}
+
+.panel__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 30px 20px;
+  border-top: 1px solid var(--line);
+}
+
+/* --- viewport ----------------------------------------------------- */
+
+.viewport {
+  position: relative;
+  min-width: 0;
+}
+
+#labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 3px 6px 3px 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: 0;
+  background: none;
+  color: var(--fg-dim);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.19em;
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+  transition:
+    color 200ms ease,
+    opacity 200ms ease;
+}
+
+.label__dot {
+  width: 5px;
+  height: 5px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  transform: translateY(0.5px);
+  transition: background-color 200ms ease;
+}
+
+.label__mark {
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+.label:hover,
+.label.is-hover {
+  color: var(--fg);
+}
+
+.label:hover .label__dot,
+.label.is-hover .label__dot {
+  background: currentColor;
+}
+
+.label.is-selected {
+  color: #fff;
+}
+
+.label.is-selected .label__dot {
+  background: #fff;
+}
+
+.label--page:hover .label__mark {
+  opacity: 1;
+}
+
+/* --- scene chrome -------------------------------------------------- */
+
+.chrome {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.chrome > * {
+  pointer-events: auto;
+}
+
+/* Static readouts must never intercept a planet-label click behind them. */
+.legend,
+.note {
+  pointer-events: none;
+}
+
+.chrome--top {
+  top: 24px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.chrome--bottom {
+  left: 30px;
+  bottom: 22px;
+  right: 30px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.legend {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  line-height: 2;
+}
+
+.legend b {
+  color: var(--fg-dim);
+  font-weight: 500;
+}
+
+.note {
+  max-width: 30ch;
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  color: var(--fg-faint);
+  text-align: right;
+}
+
+/* --- responsive ----------------------------------------------------- */
+
+@media (max-width: 1180px) {
+  .stage {
+    grid-template-columns: 330px 1fr;
+  }
+  .panel__title {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 860px) {
+  .stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 46vh;
+  }
+  .panel {
+    order: 2;
+    border-right: 0;
+    border-top: 1px solid var(--line);
+    background: rgba(5, 6, 10, 0.95);
+  }
+  .viewport {
+    order: 1;
+  }
+  .panel__title {
+    font-size: 30px;
+  }
+  .panel__top,
+  .panel__foot {
+    padding-inline: 20px;
+  }
+  .panel__scroll {
+    padding: 22px 20px 28px;
+  }
+  .chrome--bottom .note {
+    display: none;
+  }
+  .chrome--top {
+    top: 16px;
+    right: 18px;
+  }
+  .chrome--bottom {
+    left: 18px;
+    bottom: 14px;
+    right: 18px;
+  }
+}
