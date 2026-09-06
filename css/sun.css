@@ -569,7 +569,9 @@ p {
 
 .sun-page
 .sun-topic-row
-span {
+span,
+.sun-page
+.sun-topic-button {
 
     display:
         inline-flex;
@@ -620,6 +622,44 @@ span {
 
     letter-spacing:
         0.08em;
+
+    cursor:
+        pointer;
+
+    transition:
+        border-color 160ms ease,
+        color 160ms ease,
+        background 160ms ease;
+
+}
+
+
+.sun-page
+.sun-topic-button:hover {
+
+    border-color:
+        rgba(
+            255,
+            180,
+            80,
+            0.55
+        );
+
+    color:
+        rgba(
+            255,
+            220,
+            150,
+            0.95
+        );
+
+    background:
+        rgba(
+            255,
+            150,
+            50,
+            0.08
+        );
 
 }
 
@@ -793,5 +833,522 @@ strong {
             15px;
 
     }
+
+}
+/* =====================================================
+   SUN SPACECRAFT — PARKER / SOLAR ORBITER / SOHO
+===================================================== */
+
+.sun-spacecraft-selector {
+    position: fixed;
+    right: 80px;
+    bottom: 92px;
+    z-index: 30;
+
+    display: flex;
+    gap: 8px;
+
+    align-items: stretch;
+
+    pointer-events: auto;
+}
+
+
+.sun-spacecraft-selector-button {
+    min-width: 124px;
+
+    padding: 10px 12px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.16);
+
+    border-radius: 10px;
+
+    background:
+        rgba(3, 7, 18, 0.70);
+
+    color:
+        rgba(255, 255, 255, 0.88);
+
+    backdrop-filter:
+        blur(12px);
+
+    cursor:
+        pointer;
+
+    text-align:
+        left;
+
+    transition:
+        border-color 180ms ease,
+        background 180ms ease,
+        transform 180ms ease,
+        opacity 180ms ease;
+}
+
+
+.sun-spacecraft-selector-button span {
+    display: block;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+}
+
+
+.sun-spacecraft-selector-button small {
+    display: block;
+
+    margin-top: 4px;
+
+    color:
+        rgba(255, 255, 255, 0.46);
+
+    font-size: 10px;
+}
+
+
+.sun-spacecraft-selector-button:hover:not(:disabled),
+.sun-spacecraft-selector-button[data-active="true"] {
+    border-color:
+        rgba(255, 255, 255, 0.46);
+
+    background:
+        rgba(13, 20, 35, 0.88);
+
+    transform:
+        translateY(-2px);
+}
+
+
+.sun-spacecraft-selector-button:disabled {
+    cursor: default;
+
+    opacity: 0.34;
+
+    transform: none;
+}
+
+
+/* =====================================================
+   MODEL ÜSTÜ İSİMLER
+===================================================== */
+
+.sun-spacecraft-label-layer {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 25;
+
+    pointer-events: none;
+}
+
+
+.sun-spacecraft-label {
+    position: fixed;
+
+    transform:
+        translate(-50%, -50%);
+
+    padding:
+        5px 8px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.20);
+
+    border-radius:
+        999px;
+
+    background:
+        rgba(2, 4, 10, 0.78);
+
+    color:
+        rgba(255, 255, 255, 0.88);
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.08em;
+
+    white-space:
+        nowrap;
+
+    backdrop-filter:
+        blur(8px);
+
+    pointer-events:
+        auto;
+
+    cursor:
+        pointer;
+}
+
+
+.sun-spacecraft-label[data-active="true"] {
+    border-color:
+        rgba(255, 255, 255, 0.66);
+
+    color:
+        #ffffff;
+}
+
+
+.sun-spacecraft-label:disabled {
+    pointer-events:
+        none;
+
+    opacity:
+        0.38;
+}
+
+
+/* =====================================================
+   INFO PANEL
+===================================================== */
+
+.sun-spacecraft-instruments {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 10px;
+    margin-bottom: 12px;
+}
+
+
+.sun-spacecraft-instruments span {
+    padding:
+        6px 8px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.12);
+
+    border-radius:
+        999px;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    font-size:
+        10px;
+
+    color:
+        rgba(255, 255, 255, 0.72);
+}
+
+
+.sun-spacecraft-media-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        10px;
+
+    margin-top:
+        12px;
+}
+
+
+.sun-spacecraft-media-card {
+    margin:
+        0;
+}
+
+
+.sun-spacecraft-media-card img {
+    display:
+        block;
+
+    width:
+        100%;
+
+    aspect-ratio:
+        16 / 10;
+
+    object-fit:
+        cover;
+
+    border-radius:
+        8px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+}
+
+
+.sun-spacecraft-media-card figcaption {
+    margin-top:
+        5px;
+
+    color:
+        rgba(255, 255, 255, 0.48);
+
+    font-size:
+        9px;
+
+    line-height:
+        1.4;
+}
+
+
+.sun-official-link {
+    color:
+        rgba(255, 255, 255, 0.86);
+
+    text-decoration:
+        none;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.28);
+}
+
+
+.sun-official-link:hover {
+    color:
+        #ffffff;
+
+    border-bottom-color:
+        rgba(255, 255, 255, 0.70);
+}
+
+
+@media (max-width: 1050px) {
+
+    .sun-spacecraft-selector {
+        right:
+            24px;
+
+        bottom:
+            82px;
+    }
+
+
+    .sun-spacecraft-selector-button {
+        min-width:
+            104px;
+
+        padding:
+            8px 10px;
+    }
+
+}
+/* =====================================================
+   GÜNEŞ AKTİVİTE SEÇİMLERİ — CLICK GÜVENLİĞİ
+===================================================== */
+
+.sun-page .sun-info-panel,
+.sun-page #sun-info-scroll,
+.sun-page #info-content {
+    pointer-events: auto !important;
+}
+
+.sun-page #info-content [data-sun-feature] {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    position: relative;
+    z-index: 100;
+}
+/* =====================================================
+   SUN FEATURE / COMPARE UI
+===================================================== */
+
+.sun-page #info-content button {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   FEATURE MEDIA
+===================================================== */
+
+.sun-feature-media-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+
+.sun-feature-media-card {
+    margin: 0;
+}
+
+
+.sun-feature-media-card img {
+    display: block;
+
+    width: 100%;
+    max-height: 230px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.12);
+
+    background:
+        rgba(255, 255, 255, 0.03);
+}
+
+
+.sun-feature-media-card figcaption {
+    margin-top: 6px;
+
+    color:
+        rgba(255, 255, 255, 0.50);
+
+    font-size: 10px;
+    line-height: 1.45;
+}
+
+
+/* =====================================================
+   FEATURE VE COMPARE MODUNDA UZAY ARAÇLARI YOK
+===================================================== */
+
+body.sun-feature-mode
+#sun-spacecraft-selector,
+
+body.sun-feature-mode
+#sun-spacecraft-label-layer,
+
+body.sun-compare-mode
+#sun-spacecraft-selector,
+
+body.sun-compare-mode
+#sun-spacecraft-label-layer {
+    display: none !important;
+}
+
+
+/* =====================================================
+   COMPARE TABLE
+===================================================== */
+
+.sun-page .compare-table {
+    width: 100%;
+
+    margin-top: 16px;
+
+    border-collapse: collapse;
+
+    font-size: 11px;
+}
+
+
+.sun-page .compare-table th,
+.sun-page .compare-table td {
+    padding: 9px 8px;
+
+    text-align: left;
+    vertical-align: top;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+}
+
+
+.sun-page .compare-table th {
+    color:
+        rgba(255, 255, 255, 0.48);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.07em;
+
+    text-transform: uppercase;
+}
+
+
+.sun-page .compare-table td {
+    color:
+        rgba(255, 255, 255, 0.72);
+}
+
+
+.sun-page .compare-table strong {
+    color: #ffffff;
+}
+
+
+.sun-page .compare-table small {
+    color:
+        rgba(255, 255, 255, 0.42);
+}
+
+
+/* =====================================================
+   BUTONLAR CANVAS'IN ARKASINDA KALMASIN
+===================================================== */
+
+.sun-page .sun-info-panel,
+.sun-page #sun-info-scroll,
+.sun-page #info-content,
+.sun-page .info-actions {
+    pointer-events: auto;
+}
+
+
+.sun-page .info-actions button {
+    position: relative;
+    z-index: 100;
+    pointer-events: auto;
+}
+
+/* =====================================================
+   GÜNEŞ KATMAN GÖRSELİ
+===================================================== */
+
+.sun-page .sun-layers-image {
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    border-radius:
+        10px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.10
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.03
+        );
+
+    object-fit:
+        cover;
 
 }

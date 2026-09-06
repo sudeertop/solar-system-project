@@ -4,1522 +4,524 @@ import {
     OrbitControls
 } from "three/addons/controls/OrbitControls.js";
 
+import {
+    EffectComposer
+} from "three/addons/postprocessing/EffectComposer.js";
+
+import {
+    RenderPass
+} from "three/addons/postprocessing/RenderPass.js";
+
+import {
+    UnrealBloomPass
+} from "three/addons/postprocessing/UnrealBloomPass.js";
+
+import {
+    GLTFLoader
+} from "three/addons/loaders/GLTFLoader.js";
+import {
+    initSunSpacecraft,
+    updateSunSpacecraft
+} from "./sun-spacecraft.js";
+import {
+    initSunSpacecraft,
+    updateSunSpacecraft
+} from "./sun-spacecraft.js";
+
 
 // ======================================================
 // 1. HTML
 // ======================================================
 
 const container =
-
     document.getElementById(
         "sun-scene"
     );
 
-
 const infoScroll =
-
     document.getElementById(
         "sun-info-scroll"
     );
 
-
 const compareEarthButton =
-
     document.getElementById(
         "compare-earth-button"
     );
 
-
-if (
-    !container
-) {
-
-    throw new Error(
-        "#sun-scene bulunamadı."
-    );
-
+if (!container) {
+    throw new Error("#sun-scene bulunamadı.");
 }
 
 
 // ======================================================
-// 2. SAHNE
+// 2. SABİTLER
 // ======================================================
 
-const scene =
-
-    new THREE.Scene();
-
-
-scene.background =
-
-    new THREE.Color(
-        0x02040a
-    );
+const SUN_AXIS_TILT_DEG        = 7.25;
+const SUN_EQUATORIAL_ROTATION_DAYS = 25.38;
 
 
 // ======================================================
-// 3. KAMERA
+// 3. SAHNE
 // ======================================================
 
-const camera =
+const scene = new THREE.Scene();
 
-    new THREE.PerspectiveCamera(
-
-        45,
-
-        container.clientWidth
-        /
-        container.clientHeight,
-
-        0.01,
-
-        250
-
-    );
+scene.background = new THREE.Color(0x02040a);
 
 
-camera.position.set(
+// ======================================================
+// 4. KAMERA
+// ======================================================
 
-    0,
+const camera = new THREE.PerspectiveCamera(
 
-    0.10,
+    45,
 
-    4.35
+    Math.max(container.clientWidth, 1)
+    /
+    Math.max(container.clientHeight, 1),
+
+    0.01,
+
+    300
 
 );
 
+camera.position.set(0, 0.08, 4.35);
+
 
 // ======================================================
-// 4. RENDERER
+// 5. RENDERER
 // ======================================================
 
-const renderer =
-
-    new THREE.WebGLRenderer({
-
-        antialias:
-            true,
-
-        alpha:
-            false
-
-    });
-
+const renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    alpha: false,
+    powerPreference: "high-performance"
+});
 
 renderer.setSize(
-
-    container.clientWidth,
-
-    container.clientHeight
-
+    Math.max(container.clientWidth, 1),
+    Math.max(container.clientHeight, 1)
 );
 
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-renderer.setPixelRatio(
+renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-    Math.min(
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
-        window.devicePixelRatio,
+renderer.toneMappingExposure = 0.88;
 
-        2
+renderer.domElement.style.display = "block";
 
-    )
-
-);
-
-
-renderer.outputColorSpace =
-
-    THREE.SRGBColorSpace;
-
-
-renderer.toneMapping =
-
-    THREE.ACESFilmicToneMapping;
-
-
-renderer.toneMappingExposure =
-
-    1.10;
-
-
-renderer.domElement.style.display =
-
-    "block";
-
-
-container.appendChild(
-
-    renderer.domElement
-
-);
+container.appendChild(renderer.domElement);
 
 
 // ======================================================
-// 5. ORBIT CONTROLS
+// 6. BLOOM
 // ======================================================
 
-const controls =
+const composer = new EffectComposer(renderer);
 
-    new OrbitControls(
+const renderPass = new RenderPass(scene, camera);
 
-        camera,
+composer.addPass(renderPass);
 
-        renderer.domElement
+const bloomPass = new UnrealBloomPass(
 
-    );
+    new THREE.Vector2(
+        Math.max(container.clientWidth, 1),
+        Math.max(container.clientHeight, 1)
+    ),
 
-
-controls.enableDamping =
-
-    true;
-
-
-controls.dampingFactor =
-
-    0.06;
-
-
-controls.enablePan =
-
-    false;
-
-
-controls.rotateSpeed =
-
-    0.55;
-
-
-controls.zoomSpeed =
-
-    0.80;
-
-
-// Güneş'in içine girmeyi engelle.
-
-controls.minDistance =
-
-    1.22;
-
-
-controls.maxDistance =
-
-    18;
-
-
-controls.target.set(
-
-    0,
-
-    0,
-
-    0
+    0.35,   // strength
+    0.22,   // radius
+    0.95    // threshold
 
 );
 
+composer.addPass(bloomPass);
 
+
+// ======================================================
+// 7. ORBIT CONTROLS
+// ======================================================
+
+const controls = new OrbitControls(camera, renderer.domElement);
+
+controls.enableDamping  = true;
+controls.dampingFactor  = 0.06;
+controls.enablePan      = false;
+controls.rotateSpeed    = 0.55;
+controls.zoomSpeed      = 0.80;
+controls.minDistance    = 1.20;
+controls.maxDistance    = 18;
+controls.target.set(0, 0, 0);
 controls.update();
 
 
 // ======================================================
-// 6. YILDIZ ALANI
+// 8. IŞIKLAR
+// ======================================================
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.04);
+scene.add(ambientLight);
+
+const sunPointLight = new THREE.PointLight(0xfff1d4, 18, 120, 2);
+sunPointLight.position.set(0, 0, 0);
+scene.add(sunPointLight);
+
+
+// ======================================================
+// 9. YILDIZ ALANI
 // ======================================================
 
 function createStars() {
 
-    const count =
+    const count     = 1900;
+    const positions = new Float32Array(count * 3);
 
-        1900;
+    for (let i = 0; i < count; i++) {
 
+        const radius = 9 + Math.random() * 38;
+        const theta  = Math.random() * Math.PI * 2;
+        const phi    = Math.acos(2 * Math.random() - 1);
 
-    const positions =
-
-        new Float32Array(
-
-            count
-            *
-            3
-
-        );
-
-
-    for (
-
-        let i = 0;
-
-        i < count;
-
-        i++
-
-    ) {
-
-        const radius =
-
-            8
-
-            +
-
-            Math.random()
-            *
-            34;
-
-
-        const theta =
-
-            Math.random()
-            *
-            Math.PI
-            *
-            2;
-
-
-        const phi =
-
-            Math.acos(
-
-                2
-                *
-                Math.random()
-
-                -
-
-                1
-
-            );
-
-
-        positions[
-            i * 3
-        ] =
-
-            radius
-
-            *
-
-            Math.sin(
-                phi
-            )
-
-            *
-
-            Math.cos(
-                theta
-            );
-
-
-        positions[
-            i * 3 + 1
-        ] =
-
-            radius
-
-            *
-
-            Math.cos(
-                phi
-            );
-
-
-        positions[
-            i * 3 + 2
-        ] =
-
-            radius
-
-            *
-
-            Math.sin(
-                phi
-            )
-
-            *
-
-            Math.sin(
-                theta
-            );
+        positions[i * 3]     = radius * Math.sin(phi) * Math.cos(theta);
+        positions[i * 3 + 1] = radius * Math.cos(phi);
+        positions[i * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
 
     }
 
-
-    const geometry =
-
-        new THREE.BufferGeometry();
-
+    const geometry = new THREE.BufferGeometry();
 
     geometry.setAttribute(
-
         "position",
-
-        new THREE.BufferAttribute(
-
-            positions,
-
-            3
-
-        )
-
+        new THREE.BufferAttribute(positions, 3)
     );
 
+    const material = new THREE.PointsMaterial({
+        color:       0xffffff,
+        size:        0.020,
+        transparent: true,
+        opacity:     0.52,
+        depthWrite:  false
+    });
 
-    const material =
-
-        new THREE.PointsMaterial({
-
-            color:
-                0xffffff,
-
-            size:
-                0.024,
-
-            transparent:
-                true,
-
-            opacity:
-                0.62,
-
-            depthWrite:
-                false
-
-        });
-
-
-    const stars =
-
-        new THREE.Points(
-
-            geometry,
-
-            material
-
-        );
-
-
-    scene.add(
-
-        stars
-
-    );
+    const stars  = new THREE.Points(geometry, material);
+    stars.name   = "SUN_STAR_FIELD";
+    scene.add(stars);
 
 }
-
 
 createStars();
 
 
 // ======================================================
-// 7. GÜNEŞ ROOT
+// 10. ROOTLAR
 // ======================================================
 
-const sunRoot =
+const sunRoot = new THREE.Group();
+sunRoot.name  = "SUN_ROOT";
+sunRoot.rotation.z = THREE.MathUtils.degToRad(-SUN_AXIS_TILT_DEG);
+scene.add(sunRoot);
 
-    new THREE.Group();
+const sunAtmosphereRoot = new THREE.Group();
+sunAtmosphereRoot.name  = "SUN_ATMOSPHERE_ROOT";
+scene.add(sunAtmosphereRoot);
+
+const spacecraftRoot = new THREE.Group();
+spacecraftRoot.name  = "SUN_SPACECRAFT_ROOT";
+scene.add(spacecraftRoot);
+// ======================================================
+// SUN VIEW MODE
+// ======================================================
+
+let sunViewMode =
+    "sun";
 
 
-sunRoot.name =
+window.addEventListener(
+    "sun-spacecraft-mode-change",
+    (event) => {
 
-    "SUN_ROOT";
+        sunViewMode =
+            event.detail?.mode
+            ||
+            "sun";
 
-
-scene.add(
-
-    sunRoot
-
+    }
 );
 
 
 // ======================================================
-// 8. PROCEDURAL GÜNEŞ SHADER
+// PARKER + SOLAR ORBITER + SOHO
 // ======================================================
 
-const sunGeometry =
+initSunSpacecraft({
 
-    new THREE.SphereGeometry(
+    scene,
 
-        1,
+    root:
+        spacecraftRoot,
 
-        160,
+    camera,
 
-        160
+    renderer,
 
-    );
+    controls,
 
+    infoScroll
 
-// ======================================================
-// 9. VERTEX SHADER
-// ======================================================
+})
+.catch(
+    (error) => {
 
-const sunVertexShader = `
-
-    varying vec3 vNormalW;
-
-    varying vec3 vPositionW;
-
-    varying vec3 vLocalPosition;
-
-
-    void main() {
-
-        vLocalPosition =
-            position;
-
-
-        vec4 worldPosition =
-
-            modelMatrix
-
-            *
-
-            vec4(
-                position,
-                1.0
-            );
-
-
-        vPositionW =
-
-            worldPosition.xyz;
-
-
-        vNormalW =
-
-            normalize(
-
-                mat3(
-                    modelMatrix
-                )
-
-                *
-
-                normal
-
-            );
-
-
-        gl_Position =
-
-            projectionMatrix
-
-            *
-
-            viewMatrix
-
-            *
-
-            worldPosition;
+        console.error(
+            "Güneş uzay aracı sistemi başlatılamadı:",
+            error
+        );
 
     }
-
-`;
+);
 
 
 // ======================================================
-// 10. FRAGMENT SHADER
+// 11. GLB YÜKLE
 // ======================================================
 
-const sunFragmentShader = `
+const loader = new GLTFLoader();
 
-    uniform float uTime;
+let sunMesh = null;
 
+loader.load(
 
-    varying vec3 vNormalW;
+    // *** BURAYA KENDİ DOSYA YOLUNU YAZ ***
+    "/assets/models/sun/sun.glb",
 
-    varying vec3 vPositionW;
+    (gltf) => {
 
-    varying vec3 vLocalPosition;
+        const model = gltf.scene;
 
+        // GLB'nin boyutunu normalize et
+        // (Blender'dan geldiğine göre ölçeği ayarla)
+        const box    = new THREE.Box3().setFromObject(model);
+        const size   = box.getSize(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
 
-    float hash31(
-        vec3 p
-    ) {
+        // Sahne yarıçapımız 1 birim — buna göre ölçekle
+        const scaleFactor = 2.0 / maxDim;
+        model.scale.setScalar(scaleFactor);
 
-        p =
+        // Merkeze al
+        const center = box.getCenter(new THREE.Vector3());
+        model.position.sub(center.multiplyScalar(scaleFactor));
 
-            fract(
+        // GLB içindeki tüm mesh'leri bul,
+        // MeshBasicMaterial'a çevir (kendi ışığını yaymak için)
+        model.traverse((child) => {
 
-                p
-                *
-                0.1031
+            if (child.isMesh) {
 
-            );
+                sunMesh = child;
 
+                // Eğer texture varsa koru, sadece
+                // materyal tipini değiştir
+                const oldMat = child.material;
 
-        p +=
+                                // GLB'nin kendi texture'ı yoksa
+                // sun_surface.jpg'yi yükle
+                const textureLoader =
+                    new THREE.TextureLoader();
 
-            dot(
+                const fallbackTexture =
+                    textureLoader.load(
+                        "/assets/textures/sun/sun_surface.jpg"
+                    );
 
-                p,
+                fallbackTexture.colorSpace =
+                    THREE.SRGBColorSpace;
 
-                p.yzx
-                +
-                33.33
+                child.material =
+                    new THREE.MeshBasicMaterial({
 
-            );
+                        map:
+                            oldMat.map
+                            ||
+                            fallbackTexture,
 
+                        color:
+                            new THREE.Color(
+                                1.6,
+                                1.0,
+                                0.5
+                            )
 
-        return
+                    });
 
-            fract(
+                child.material.needsUpdate = true;
 
-                (
-                    p.x
-                    +
-                    p.y
-                )
+            }
 
-                *
+        });
 
-                p.z
+        model.name = "SUN_GLB_MODEL";
 
-            );
+        sunRoot.add(model);
 
-    }
+        console.log("sun.glb yüklendi.");
 
+    },
 
-    float noise3D(
-        vec3 p
-    ) {
+    (progress) => {
 
-        vec3 i =
-
-            floor(
-                p
-            );
-
-
-        vec3 f =
-
-            fract(
-                p
-            );
-
-
-        f =
-
-            f
-            *
-            f
-            *
-            (
-                3.0
-                -
-                2.0
-                *
-                f
-            );
-
-
-        float n000 =
-            hash31(
-                i
-                +
-                vec3(
-                    0.0,
-                    0.0,
-                    0.0
-                )
-            );
-
-
-        float n100 =
-            hash31(
-                i
-                +
-                vec3(
-                    1.0,
-                    0.0,
-                    0.0
-                )
-            );
-
-
-        float n010 =
-            hash31(
-                i
-                +
-                vec3(
-                    0.0,
-                    1.0,
-                    0.0
-                )
-            );
-
-
-        float n110 =
-            hash31(
-                i
-                +
-                vec3(
-                    1.0,
-                    1.0,
-                    0.0
-                )
-            );
-
-
-        float n001 =
-            hash31(
-                i
-                +
-                vec3(
-                    0.0,
-                    0.0,
-                    1.0
-                )
-            );
-
-
-        float n101 =
-            hash31(
-                i
-                +
-                vec3(
-                    1.0,
-                    0.0,
-                    1.0
-                )
-            );
-
-
-        float n011 =
-            hash31(
-                i
-                +
-                vec3(
-                    0.0,
-                    1.0,
-                    1.0
-                )
-            );
-
-
-        float n111 =
-            hash31(
-                i
-                +
-                vec3(
-                    1.0,
-                    1.0,
-                    1.0
-                )
-            );
-
-
-        float nx00 =
-
-            mix(
-                n000,
-                n100,
-                f.x
-            );
-
-
-        float nx10 =
-
-            mix(
-                n010,
-                n110,
-                f.x
-            );
-
-
-        float nx01 =
-
-            mix(
-                n001,
-                n101,
-                f.x
-            );
-
-
-        float nx11 =
-
-            mix(
-                n011,
-                n111,
-                f.x
-            );
-
-
-        float nxy0 =
-
-            mix(
-                nx00,
-                nx10,
-                f.y
-            );
-
-
-        float nxy1 =
-
-            mix(
-                nx01,
-                nx11,
-                f.y
-            );
-
-
-        return
-
-            mix(
-                nxy0,
-                nxy1,
-                f.z
-            );
-
-    }
-
-
-    float fbm(
-        vec3 p
-    ) {
-
-        float value =
-            0.0;
-
-
-        float amplitude =
-            0.50;
-
-
-        for (
-
-            int i = 0;
-
-            i < 5;
-
-            i++
-
-        ) {
-
-            value +=
-
-                noise3D(
-                    p
-                )
-
-                *
-
-                amplitude;
-
-
-            p *=
-                2.05;
-
-
-            amplitude *=
-                0.50;
-
+        if (progress.total > 0) {
+            const percent =
+                Math.round(
+                    (progress.loaded / progress.total) * 100
+                );
+            console.log(`Güneş yükleniyor: %${percent}`);
         }
 
+    },
 
-        return value;
-
+    (error) => {
+        console.error("sun.glb yüklenemedi:", error);
     }
 
-
-    void main() {
-
-        vec3 n =
-
-            normalize(
-                vNormalW
-            );
-
-
-        vec3 viewDirection =
-
-            normalize(
-
-                cameraPosition
-
-                -
-
-                vPositionW
-
-            );
-
-
-        float facing =
-
-            max(
-
-                dot(
-                    n,
-                    viewDirection
-                ),
-
-                0.0
-
-            );
-
-
-        // ==============================================
-        // YÜZEY HAREKETİ
-        // ==============================================
-
-        vec3 surfacePosition =
-
-            normalize(
-                vLocalPosition
-            );
-
-
-        vec3 flowA =
-
-            surfacePosition
-            *
-            8.0
-
-            +
-
-            vec3(
-
-                uTime
-                *
-                0.020,
-
-                uTime
-                *
-                -0.014,
-
-                uTime
-                *
-                0.012
-
-            );
-
-
-        vec3 flowB =
-
-            surfacePosition
-            *
-            18.0
-
-            +
-
-            vec3(
-
-                -uTime
-                *
-                0.030,
-
-                uTime
-                *
-                0.018,
-
-                uTime
-                *
-                0.015
-
-            );
-
-
-        float broad =
-
-            fbm(
-                flowA
-            );
-
-
-        float granulation =
-
-            fbm(
-                flowB
-            );
-
-
-        float activity =
-
-            broad
-            *
-            0.65
-
-            +
-
-            granulation
-            *
-            0.35;
-
-
-        // ==============================================
-        // RENK
-        // ==============================================
-
-        vec3 darkOrange =
-
-            vec3(
-                1.0,
-                0.19,
-                0.015
-            );
-
-
-        vec3 orange =
-
-            vec3(
-                1.0,
-                0.43,
-                0.035
-            );
-
-
-        vec3 yellow =
-
-            vec3(
-                1.0,
-                0.82,
-                0.22
-            );
-
-
-        vec3 hot =
-
-            vec3(
-                1.0,
-                0.96,
-                0.63
-            );
-
-
-        vec3 color =
-
-            mix(
-
-                darkOrange,
-
-                orange,
-
-                smoothstep(
-                    0.22,
-                    0.58,
-                    activity
-                )
-
-            );
-
-
-        color =
-
-            mix(
-
-                color,
-
-                yellow,
-
-                smoothstep(
-                    0.45,
-                    0.75,
-                    activity
-                )
-
-            );
-
-
-        color =
-
-            mix(
-
-                color,
-
-                hot,
-
-                smoothstep(
-                    0.72,
-                    0.95,
-                    activity
-                )
-
-            );
-
-
-        // ==============================================
-        // LIMB DARKENING
-        // ==============================================
-
-        float limb =
-
-            pow(
-                facing,
-                0.24
-            );
-
-
-        color *=
-
-            mix(
-
-                0.56,
-
-                1.10,
-
-                limb
-
-            );
-
-
-        // Hafif emissive güç.
-
-        color *=
-            1.18;
-
-
-        gl_FragColor =
-
-            vec4(
-                color,
-                1.0
-            );
-
-    }
-
-`;
-
-
-// ======================================================
-// 11. GÜNEŞ MATERYALİ
-// ======================================================
-
-const sunMaterial =
-
-    new THREE.ShaderMaterial({
-
-        vertexShader:
-            sunVertexShader,
-
-        fragmentShader:
-            sunFragmentShader,
-
-        uniforms: {
-
-            uTime: {
-                value:
-                    0
-            }
-
-        }
-
-    });
-
-
-// ======================================================
-// 12. ANA GÜNEŞ
-// ======================================================
-
-const sunMesh =
-
-    new THREE.Mesh(
-
-        sunGeometry,
-
-        sunMaterial
-
-    );
-
-
-sunMesh.name =
-
-    "SUN_SURFACE";
-
-
-sunRoot.add(
-
-    sunMesh
-
 );
 
 
 // ======================================================
-// 13. İÇ GLOW
+// 12. HALE — SPRITE TABANLI
 // ======================================================
 
-const innerGlowGeometry =
+function createRadialGlowTexture(size = 512) {
 
-    new THREE.SphereGeometry(
+    const canvas = document.createElement("canvas");
+    canvas.width  = size;
+    canvas.height = size;
 
-        1.055,
+    const ctx = canvas.getContext("2d");
 
-        96,
-
-        96
-
+    const gradient = ctx.createRadialGradient(
+        size / 2, size / 2, 0,
+        size / 2, size / 2, size / 2
     );
 
+    gradient.addColorStop(0.0,  "rgba(255,255,255,1.0)");
+    gradient.addColorStop(0.18, "rgba(255,255,255,0.55)");
+    gradient.addColorStop(0.42, "rgba(255,255,255,0.16)");
+    gradient.addColorStop(1.0,  "rgba(255,255,255,0.0)");
 
-const innerGlowMaterial =
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, size, size);
 
-    new THREE.MeshBasicMaterial({
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
 
-        color:
-            0xff8a20,
+    return texture;
 
-        transparent:
-            true,
+}
 
-        opacity:
-            0.12,
+const glowTexture = createRadialGlowTexture();
 
-        blending:
-            THREE.AdditiveBlending,
+// Dış hale
+const outerGlowMaterial = new THREE.SpriteMaterial({
+    map:         glowTexture,
+    color:       0xffb15c,
+    transparent: true,
+    depthWrite:  false,
+    depthTest:   true,
+    blending:    THREE.AdditiveBlending,
+    opacity:     0.42
+});
 
-        side:
-            THREE.BackSide,
+const outerGlowSprite = new THREE.Sprite(outerGlowMaterial);
+outerGlowSprite.scale.set(5.2, 5.2, 1);
+outerGlowSprite.name = "SUN_OUTER_GLOW";
+sunAtmosphereRoot.add(outerGlowSprite);
 
-        depthWrite:
-            false
+// İç hale
+const innerGlowMaterial = new THREE.SpriteMaterial({
+    map:         glowTexture,
+    color:       0xfff2c2,
+    transparent: true,
+    depthWrite:  false,
+    depthTest:   true,
+    blending:    THREE.AdditiveBlending,
+    opacity:     0.70
+});
 
-    });
-
-
-const innerGlow =
-
-    new THREE.Mesh(
-
-        innerGlowGeometry,
-
-        innerGlowMaterial
-
-    );
-
-
-sunRoot.add(
-
-    innerGlow
-
-);
+const innerGlowSprite = new THREE.Sprite(innerGlowMaterial);
+innerGlowSprite.scale.set(2.4, 2.4, 1);
+innerGlowSprite.name = "SUN_INNER_GLOW";
+sunAtmosphereRoot.add(innerGlowSprite);
 
 
 // ======================================================
-// 14. DIŞ GLOW SHADER
+// 13. KAMERA GÜNEŞ'İN İÇİNE GİRMESİN
 // ======================================================
 
-const glowGeometry =
-
-    new THREE.SphereGeometry(
-
-        1.19,
-
-        96,
-
-        96
-
-    );
-
-
-const glowMaterial =
-
-    new THREE.ShaderMaterial({
-
-        transparent:
-            true,
-
-        blending:
-            THREE.AdditiveBlending,
-
-        depthWrite:
-            false,
-
-        side:
-            THREE.BackSide,
-
-
-        vertexShader: `
-
-            varying vec3 vNormalW;
-
-            varying vec3 vPositionW;
-
-
-            void main() {
-
-                vec4 worldPosition =
-
-                    modelMatrix
-
-                    *
-
-                    vec4(
-                        position,
-                        1.0
-                    );
-
-
-                vPositionW =
-
-                    worldPosition.xyz;
-
-
-                vNormalW =
-
-                    normalize(
-
-                        mat3(
-                            modelMatrix
-                        )
-
-                        *
-
-                        normal
-
-                    );
-
-
-                gl_Position =
-
-                    projectionMatrix
-
-                    *
-
-                    viewMatrix
-
-                    *
-
-                    worldPosition;
-
-            }
-
-        `,
-
-
-        fragmentShader: `
-
-            varying vec3 vNormalW;
-
-            varying vec3 vPositionW;
-
-
-            void main() {
-
-                vec3 viewDirection =
-
-                    normalize(
-
-                        cameraPosition
-
-                        -
-
-                        vPositionW
-
-                    );
-
-
-                float fresnel =
-
-                    1.0
-
-                    -
-
-                    abs(
-
-                        dot(
-
-                            normalize(
-                                vNormalW
-                            ),
-
-                            viewDirection
-
-                        )
-
-                    );
-
-
-                fresnel =
-
-                    pow(
-                        fresnel,
-                        2.4
-                    );
-
-
-                vec3 glowColor =
-
-                    vec3(
-                        1.0,
-                        0.33,
-                        0.035
-                    );
-
-
-                gl_FragColor =
-
-                    vec4(
-
-                        glowColor,
-
-                        fresnel
-                        *
-                        0.30
-
-                    );
-
-            }
-
-        `
-
-    });
-
-
-const glowMesh =
-
-    new THREE.Mesh(
-
-        glowGeometry,
-
-        glowMaterial
-
-    );
-
-
-sunRoot.add(
-
-    glowMesh
-
-);
-
-
-// ======================================================
-// 15. KORONA
-// ======================================================
-
-const coronaGeometry =
-
-    new THREE.SphereGeometry(
-
-        1.34,
-
-        80,
-
-        80
-
-    );
-
-
-const coronaMaterial =
-
-    new THREE.MeshBasicMaterial({
-
-        color:
-            0xffa43a,
-
-        transparent:
-            true,
-
-        opacity:
-            0.025,
-
-        blending:
-            THREE.AdditiveBlending,
-
-        side:
-            THREE.BackSide,
-
-        depthWrite:
-            false
-
-    });
-
-
-const coronaMesh =
-
-    new THREE.Mesh(
-
-        coronaGeometry,
-
-        coronaMaterial
-
-    );
-
-
-sunRoot.add(
-
-    coronaMesh
-
-);
-
-
-// ======================================================
-// 16. GÜNEŞ EKSEN EĞİMİ
-//
-// Güneş'in dönme ekseni ekliptik düzleme
-// yaklaşık 7,25° eğiktir.
-// ======================================================
-
-sunRoot.rotation.z =
-
-    THREE.MathUtils.degToRad(
-        -7.25
-    );
-
-
-// ======================================================
-// 17. KAMERA GÜNEŞ'İN İÇİNE GİRMESİN
-// ======================================================
+const sunSafeCenter    = new THREE.Vector3();
+const sunSafeDirection = new THREE.Vector3();
 
 function preventCameraEnteringSun() {
 
-    const sunCenter =
-
-        new THREE.Vector3();
-
-
     sunRoot.getWorldPosition(
-
-        sunCenter
-
+        sunSafeCenter
     );
 
 
-    const offset =
+    sunSafeDirection
 
-        camera
-            .position
-            .clone()
-            .sub(
+        .copy(
+            camera.position
+        )
 
-                sunCenter
-
-            );
+        .sub(
+            sunSafeCenter
+        );
 
 
     const safeDistance =
+        1.20;
 
-        1.18;
 
+    const distance =
+        sunSafeDirection.length();
+
+
+    // Kameranın fiziksel olarak
+    // Güneş'in içine girmesine
+    // hiçbir modda izin verme.
 
     if (
-
-        offset.length()
+        distance
         <
         safeDistance
-
     ) {
 
         if (
-
-            offset.lengthSq()
+            distance
             <
             0.000001
-
         ) {
 
-            offset.set(
-
+            sunSafeDirection.set(
                 0,
-
                 0,
-
                 safeDistance
-
             );
 
         }
 
         else {
 
-            offset.setLength(
-
+            sunSafeDirection.setLength(
                 safeDistance
-
             );
 
         }
@@ -1527,12 +529,12 @@ function preventCameraEnteringSun() {
 
         camera.position.copy(
 
-            sunCenter
+            sunSafeCenter
+
                 .clone()
+
                 .add(
-
-                    offset
-
+                    sunSafeDirection
                 )
 
         );
@@ -1540,282 +542,132 @@ function preventCameraEnteringSun() {
     }
 
 
-    controls.minDistance =
-
-        safeDistance;
-
-}
-
-
-// ======================================================
-// 18. DÜNYA KARŞILAŞTIRMA BUTONU
-//
-// Şimdilik yalnızca buton görünümü korunuyor.
-// Sonraki aşamada gerçek Earth compare moduna
-// bağlayacağız.
-// ======================================================
-
-if (
-    compareEarthButton
-) {
-
-    compareEarthButton
-        .addEventListener(
-
-            "click",
-
-            () => {
-
-                console.log(
-                    "Güneş × Dünya karşılaştırma sistemi sonraki aşamada eklenecek."
-                );
-
-            }
-
-        );
-
-}
-
-
-// ======================================================
-// 19. PANELİ AÇINCA ÜSTTEN BAŞLASIN
-// ======================================================
-
-if (
-    infoScroll
-) {
-
-    infoScroll.scrollTop =
-        0;
-
-}
-
-
-// ======================================================
-// 20. ANİMASYON
-// ======================================================
-
-let previousTime =
-
-    performance.now();
-
-
-// Güneş gerçek hayatta yaklaşık 25-35 gün civarında
-// diferansiyel dönüş gösterir.
-//
-// Buradaki dönüş görsel olarak yavaş tutuluyor.
-
-function animateSun(
-    now
-) {
-
-    requestAnimationFrame(
-
-        animateSun
-
-    );
-
-
-    const delta =
-
-        Math.min(
-
-            (
-                now
-                -
-                previousTime
-            )
-
-            /
-
-            1000,
-
-            0.1
-
-        );
-
-
-    previousTime =
-        now;
-
-
-    // ==============================================
-    // SHADER ZAMANI
-    // ==============================================
-
-    sunMaterial
-        .uniforms
-        .uTime
-        .value =
-
-        now
-        /
-        1000;
-
-
-    // ==============================================
-    // YAVAŞ DÖNÜŞ
-    // ==============================================
-
-    sunMesh.rotation.y +=
-
-        delta
-        *
-        0.035;
-
-
-    innerGlow.rotation.y -=
-
-        delta
-        *
-        0.012;
-
-
-    glowMesh.rotation.y +=
-
-        delta
-        *
-        0.008;
-
-
-    // ==============================================
-    // ÇOK HAFİF KORONA NABZI
-    // ==============================================
-
-    const coronaPulse =
-
-        1
-
-        +
-
-        Math.sin(
-
-            now
-            *
-            0.0012
-
-        )
-
-        *
-        0.006;
-
-
-    coronaMesh.scale.setScalar(
-
-        coronaPulse
-
-    );
-
-
-    // ==============================================
-    // KONTROLLER
-    // ==============================================
-
-    controls.update();
-
-
-    preventCameraEnteringSun();
-
-
-    // ==============================================
-    // RENDER
-    // ==============================================
-
-    renderer.render(
-
-        scene,
-
-        camera
-
-    );
-
-}
-
-
-// ======================================================
-// 21. BAŞLAT
-// ======================================================
-
-requestAnimationFrame(
-
-    animateSun
-
-);
-
-
-// ======================================================
-// 22. RESIZE
-// ======================================================
-
-window.addEventListener(
-
-    "resize",
-
-    () => {
-
-        const width =
-
-            container.clientWidth;
-
-
-        const height =
-
-            container.clientHeight;
-
-
-        if (
-            width <= 0
-            ||
-            height <= 0
-        ) {
-
-            return;
-
-        }
-
-
-        camera.aspect =
-
-            width
-            /
-            height;
-
-
-        camera.updateProjectionMatrix();
-
-
-        renderer.setSize(
-
-            width,
-
-            height
-
-        );
-
-
-        renderer.setPixelRatio(
-
-            Math.min(
-
-                window.devicePixelRatio,
-
-                2
-
-            )
-
-        );
+    // Ama OrbitControls minDistance
+    // yalnızca Güneş keşif modunda
+    // 1.20 olsun.
+    //
+    // Spacecraft modunda
+    // sun-spacecraft.js bunu
+    // seçilen aracın boyutuna göre
+    // 0.10 yapıyor.
+
+    if (
+        sunViewMode
+        ===
+        "sun"
+    ) {
+
+        controls.minDistance =
+            safeDistance;
 
     }
 
-);
+}
 
 
 // ======================================================
-// 23. HAZIR
+// 14. BUTONLAR / PANEL
 // ======================================================
 
-console.log(
+if (compareEarthButton) {
+    compareEarthButton.addEventListener("click", () => {
+        console.log("Güneş × Dünya karşılaştırması sonraki aşamada.");
+    });
+}
 
-    "Güneş sahnesi hazır."
+if (infoScroll) {
+    infoScroll.scrollTop = 0;
+}
 
-);
+
+// ======================================================
+// 15. DÖNÜŞ HIZI
+// ======================================================
+
+const SUN_ROTATION_SECONDS  = SUN_EQUATORIAL_ROTATION_DAYS * 86400;
+const SUN_ANGULAR_SPEED     = (Math.PI * 2) / SUN_ROTATION_SECONDS;
+
+let previousTime = performance.now();
+
+
+// ======================================================
+// 16. ANİMASYON
+// ======================================================
+
+function animateSun(now) {
+
+    requestAnimationFrame(animateSun);
+
+    const delta = Math.min(
+        Math.max((now - previousTime) / 1000, 0),
+        0.1
+    );
+
+    previousTime = now;
+
+    // GLB modeli döndür
+    if (sunMesh) {
+        sunRoot.rotation.y += delta * SUN_ANGULAR_SPEED;
+    }
+
+    // Hale nefes alma
+    const glowPulse =
+        1.0
+        +
+        Math.sin(now * 0.0006)
+        *
+        0.03;
+
+    outerGlowSprite.scale.set(
+        5.2 * glowPulse,
+        5.2 * glowPulse,
+        1
+    );
+// Parker Solar Probe,
+// Solar Orbiter ve SOHO
+// gerçek UTC ephemeris update.
+
+    updateSunSpacecraft(
+    now
+    );
+    controls.update();
+
+    preventCameraEnteringSun();
+
+    composer.render();
+
+}
+
+
+// ======================================================
+// 17. BAŞLAT
+// ======================================================
+
+requestAnimationFrame(animateSun);
+
+
+// ======================================================
+// 18. RESPONSIVE
+// ======================================================
+
+window.addEventListener("resize", () => {
+
+    const width  = Math.max(container.clientWidth, 1);
+    const height = Math.max(container.clientHeight, 1);
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    composer.setSize(width, height);
+
+});
+
+
+// ======================================================
+// 19. HAZIR
+// ======================================================
+
+console.log("Güneş sahnesi hazır.");
