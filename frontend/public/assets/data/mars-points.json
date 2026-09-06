@@ -1,0 +1,138 @@
+[
+  {
+    "name": "Olympus Mons",
+    "latitude": 18.65,
+    "longitude": 226.2,
+    "type": "Kalkan volkanı",
+    "size": "≈ 600 km çap · ≈ 22 km yükseklik",
+    "description": "Olympus Mons, Güneş Sistemi'nin bilinen en büyük volkanıdır. Çok geniş tabanı ve olağanüstü yüksekliğiyle Mars'ın en belirgin yüzey yapılarından biridir."
+  },
+  {
+    "name": "Ascraeus Mons",
+    "latitude": 11.9,
+    "longitude": 255.9,
+    "type": "Kalkan volkanı",
+    "size": "≈ 460 km çap · ≈ 18 km yükseklik",
+    "description": "Ascraeus Mons, Tharsis Montes adı verilen üç büyük volkanın en kuzeyde olanıdır. Uzun süreli volkanik etkinliğin oluşturduğu dev bir kalkan volkanıdır."
+  },
+  {
+    "name": "Pavonis Mons",
+    "latitude": 0.8,
+    "longitude": 246.6,
+    "type": "Kalkan volkanı",
+    "size": "≈ 375 km çap · ≈ 14 km yükseklik",
+    "description": "Pavonis Mons, Tharsis Montes zincirinin ortasında ve Mars ekvatoruna çok yakın konumda bulunur. Mars'ın dev volkanik bölgesi Tharsis'in önemli parçalarından biridir."
+  },
+  {
+    "name": "Arsia Mons",
+    "latitude": -8.4,
+    "longitude": 238.9,
+    "type": "Kalkan volkanı",
+    "size": "≈ 435 km çap · ≈ 17 km yükseklik",
+    "description": "Arsia Mons, Tharsis Montes grubunun en güneydeki büyük volkanıdır. Zirvesindeki geniş kaldera, geçmişteki büyük volkanik etkinliğin izlerini taşır."
+  },
+  {
+    "name": "Elysium Mons",
+    "latitude": 25.0,
+    "longitude": 147.2,
+    "type": "Kalkan volkanı",
+    "size": "≈ 240 km çap · ≈ 14 km yükseklik",
+    "description": "Elysium Mons, Mars'ın Tharsis'ten sonraki önemli volkanik bölgesi olan Elysium Planitia çevresinde yükselir. Mars'ın en büyük volkanlarından biridir."
+  },
+  {
+    "name": "Alba Mons",
+    "latitude": 40.5,
+    "longitude": 250.4,
+    "type": "Kalkan volkanı",
+    "size": "≈ 1.000 km'den geniş",
+    "description": "Alba Mons çok yüksek olmamasına rağmen olağanüstü geniş bir volkanik yapıdır. Çok düşük eğimli yamaçları yüzlerce kilometre boyunca uzanır."
+  },
+  {
+    "name": "Valles Marineris",
+    "latitude": -13.9,
+    "longitude": 300.8,
+    "type": "Kanyon sistemi",
+    "size": "≈ 4.000 km uzunluk",
+    "description": "Valles Marineris, Mars'ın ekvatoru boyunca uzanan dev bir kanyon sistemidir. Bazı bölümleri yaklaşık 7 kilometre derinliğe ulaşır ve Dünya'daki Büyük Kanyon'dan çok daha büyüktür."
+  },
+  {
+    "name": "Noctis Labyrinthus",
+    "latitude": -7.0,
+    "longitude": 258.0,
+    "type": "Kanyon ve graben ağı",
+    "size": "Yüzlerce km genişlik",
+    "description": "Noctis Labyrinthus, birbirine bağlanan vadiler ve çökmüş bloklardan oluşan karmaşık bir arazi sistemidir. Tharsis bölgesi ile Valles Marineris arasında bulunur."
+  },
+  {
+    "name": "Hellas Planitia",
+    "latitude": -42.7,
+    "longitude": 70.0,
+    "type": "Dev çarpma havzası",
+    "size": "≈ 2.300 km çap",
+    "description": "Hellas Planitia, Güneş Sistemi'nin en büyük çarpma havzalarından biridir. Mars yüzeyinin en alçak bölgelerinden bazılarını içerir."
+  },
+  {
+    "name": "Argyre Planitia",
+    "latitude": -49.7,
+    "longitude": 316.0,
+    "type": "Çarpma havzası",
+    "size": "≈ 1.800 km çap",
+    "description": "Argyre Planitia, Mars'ın güney yarımküresindeki büyük ve eski çarpma havzalarından biridir. Çevresindeki dağlık arazi büyük çarpışmanın izlerini korur."
+  },
+  {
+    "name": "Utopia Planitia",
+    "latitude": 46.7,
+    "longitude": 117.5,
+    "type": "Geniş ova / çarpma havzası",
+    "size": "≈ 3.000 km ölçeğinde",
+    "description": "Utopia Planitia, Mars'ın kuzey yarımküresinde bulunan dev bir düzlük ve eski çarpma havzasıdır. Viking 2 uzay aracı 1976 yılında bu bölgeye iniş yaptı."
+  },
+  {
+    "name": "Isidis Planitia",
+    "latitude": 12.9,
+    "longitude": 87.0,
+    "type": "Çarpma havzası",
+    "size": "≈ 1.500 km çap",
+    "description": "Isidis Planitia, Mars'ın büyük ve eski çarpma havzalarından biridir. Jezero Krateri bu havzanın batı kenarına yakın bir bölgede yer alır."
+  },
+  {
+    "name": "Syrtis Major",
+    "latitude": 8.4,
+    "longitude": 69.5,
+    "type": "Karanlık volkanik bölge",
+    "size": "≈ 1.000 km ölçeğinde",
+    "description": "Syrtis Major, teleskopla Dünya'dan bile fark edilebilen koyu renkli büyük bir Mars bölgesidir. Eski ve geniş bir volkanik yapı üzerinde yer alır."
+  },
+  {
+    "name": "Jezero Krateri",
+    "latitude": 18.4,
+    "longitude": 77.6,
+    "type": "Çarpma krateri",
+    "size": "≈ 45 km çap",
+    "description": "Jezero Krateri'nin geçmişte bir göle ev sahipliği yaptığı düşünülür. Korunmuş nehir deltası nedeniyle NASA'nın Perseverance gezgininin araştırma bölgesi olarak seçilmiştir."
+  },
+  {
+    "name": "Gale Krateri",
+    "latitude": -5.4,
+    "longitude": 137.8,
+    "type": "Çarpma krateri",
+    "size": "≈ 154 km çap",
+    "description": "Gale Krateri, merkezinde yaklaşık 5 kilometre yüksekliğindeki Aeolis Mons'un yükseldiği büyük bir kraterdir. NASA'nın Curiosity gezgini 2012'den beri bu bölgeyi araştırmaktadır."
+  },
+  {
+  "name": "Planum Boreum",
+  "latitude": 85.0,
+  "longitude": 0.0,
+  "type": "Kuzey kutup buz örtüsü",
+  "size": "≈ 1.000 km çap",
+  "description": "Planum Boreum, Mars'ın kuzey kutbunda bulunan geniş buz örtüsüdür. Büyük ölçüde su buzundan oluşur ve yüzeyindeki spiral biçimli oluklar Mars'ın rüzgârları, buz birikimi ve iklim geçmişiyle ilişkilidir."
+},
+{
+  "name": "Planum Australe",
+  "latitude": -85.0,
+  "longitude": 0.0,
+  "type": "Güney kutup buz örtüsü",
+  "size": "≈ 1.500 km ölçeğinde",
+  "description": "Planum Australe, Mars'ın güney kutup bölgesindeki kalıcı buz örtüsüdür. Su buzu ve karbondioksit buzundan oluşan katmanlar Mars'ın geçmiş iklimi hakkında önemli bilgiler taşır."
+}
+]

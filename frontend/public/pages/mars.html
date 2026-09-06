@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Mars Keşif Modu | Güneş Sistemini Keşfet
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/celestial.css"
+    >
+
+
+    <script type="importmap">
+
+    {
+        "imports": {
+
+            "three":
+            "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+
+            "three/addons/":
+            "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+
+        }
+    }
+
+    </script>
+
+</head>
+
+
+<body>
+
+<main class="celestial-page mars-page">
+
+
+    <!-- ==========================================
+         3B SAHNE
+    =========================================== -->
+
+    <section
+        id="mars-scene"
+        class="celestial-scene"
+        aria-label="Etkileşimli üç boyutlu Mars modeli"
+    ></section>
+
+
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <header class="celestial-header">
+
+        <div class="header-brand">
+
+            <span class="header-dot"></span>
+
+            <span>
+                GÜNEŞ SİSTEMİNİ KEŞFET
+            </span>
+
+        </div>
+
+
+        <a
+            href="../solar-system.html"
+            class="back-button"
+        >
+
+            ← Güneş Sistemi'ne dön
+
+        </a>
+
+    </header>
+
+
+
+    <!-- ==========================================
+         SOL BİLGİ PANELİ
+    =========================================== -->
+
+    <aside
+        id="info-panel"
+        class="celestial-info"
+    >
+
+        <div class="info-line"></div>
+
+
+        <div
+            id="info-content"
+            class="info-content"
+            aria-live="polite"
+        ></div>
+
+
+        <div class="info-line"></div>
+
+    </aside>
+
+
+
+    <!-- ==========================================
+         KONTROLLER
+    =========================================== -->
+
+    <div class="scene-controls">
+
+        <span>
+
+            Sürükle
+
+            <strong>
+                Döndür
+            </strong>
+
+        </span>
+
+
+        <span>
+
+            Scroll
+
+            <strong>
+                Yaklaş / Uzaklaş
+            </strong>
+
+        </span>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         LOADING
+    =========================================== -->
+
+    <div
+        id="loading-message"
+        class="loading-message"
+    >
+
+        Mars modeli yükleniyor...
+
+    </div>
+
+
+</main>
+
+
+<script
+    type="module"
+    src="../js/mars.js"
+></script>
+
+
+</body>
+
+</html>

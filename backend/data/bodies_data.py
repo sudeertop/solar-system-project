@@ -41,7 +41,7 @@ BODIES: list[Body] = [
         kicker="YILDIZ",
         body_type="G tipi anakol yıldızı",
         mode="page",
-        href="/sun.html",
+        href="/pages/sun.html",
         lead="Sistemin toplam kütlesinin yaklaşık %99,86'sını taşıyan yıldız.",
         stats=[
             BodyStat(label="Çap", value="1.392.700 km"),
@@ -193,7 +193,7 @@ BODIES: list[Body] = [
         kicker="DÜNYA'NIN UYDUSU",
         body_type="Doğal uydu",
         mode="page",
-        href="/moon.html",
+        href="/pages/moon.html",
         lead="Dünya'nın tek doğal uydusu; eşzamanlı dönme nedeniyle hep aynı yüzünü gösterir.",
         stats=[
             BodyStat(label="Çap", value="3.475 km"),
@@ -211,7 +211,7 @@ BODIES: list[Body] = [
         kicker="IV. GEZEGEN",
         body_type="Kayaç gezegen",
         mode="page",
-        href="/mars.html",
+        href="/pages/mars.html",
         lead="İnce atmosferli, demir oksitçe zengin yüzeyiyle kızıl görünen gezegen.",
         stats=[
             BodyStat(label="Çap", value="6.779 km"),
@@ -275,7 +275,7 @@ BODIES: list[Body] = [
         kicker="VI. GEZEGEN",
         body_type="Gaz devi",
         mode="page",
-        href="/saturn.html",
+        href="/pages/saturn.html",
         lead="Buz ve kaya parçacıklarından oluşan geniş halka sistemiyle tanınan gaz devi.",
         stats=[
             BodyStat(label="Çap", value="116.460 km"),

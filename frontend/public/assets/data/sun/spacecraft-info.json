@@ -1,0 +1,116 @@
+{
+  "spacecraft": {
+    "parker": {
+      "name": "Parker Solar Probe",
+      "kicker": "GÜNEŞ GÖREVİ · NASA",
+      "launchIso": "2018-08-12T07:31:00Z",
+      "launchDisplay": "12 Ağustos 2018",
+      "status": "Aktif",
+      "operator": "NASA / Johns Hopkins APL",
+      "orbit": "Güneş çevresinde yüksek eksantriklikli yörünge",
+      "description": "Parker Solar Probe, Güneş'in dış atmosferi olan koronanın içinden geçen ilk uzay aracıdır. Güneş rüzgârının kökenini, koronanın nasıl ısındığını ve yüksek enerjili parçacıkların nasıl hızlandığını doğrudan bulunduğu ortamdan ölçer.",
+      "mission": "Parker Solar Probe, Güneş'e son derece yakın geçişler yaparken ısı kalkanını sürekli Güneş'e dönük tutar. Görev boyunca elektrik ve manyetik alanları, plazmayı, enerjik parçacıkları ve Güneş'in yakın çevresindeki yapıları inceler. 2026 yılında da yakın Güneş geçişlerine ve bilimsel gözlemlerine devam etmektedir.",
+      "instruments": [
+        "FIELDS",
+        "SWEAP",
+        "IS☉IS",
+        "WISPR"
+      ],
+      "instrumentNote": "FIELDS elektrik ve manyetik alanları ölçer. SWEAP elektron, proton ve helyum iyonlarını inceler. IS☉IS yüksek enerjili parçacıkları ölçer. WISPR ise koronayı ve Güneş rüzgârındaki yapıları görüntüler.",
+      "officialUrl": "https://science.nasa.gov/mission/parker-solar-probe/",
+      "officialLabel": "NASA · Parker Solar Probe",
+      "media": [
+        {
+          "src": "/assets/media/sun/spacecraft/parker/overview.jpg",
+          "alt": "Parker Solar Probe uzay aracı",
+          "caption": "Parker Solar Probe"
+        },
+        {
+          "src": "/assets/media/sun/spacecraft/parker/observation-1.jpg",
+          "alt": "Parker Solar Probe tarafından elde edilen Güneş gözlemi",
+          "caption": "Görevden örnek gözlem"
+        }
+      ]
+    },
+
+    "solarOrbiter": {
+      "name": "Solar Orbiter",
+      "kicker": "GÜNEŞ GÖREVİ · ESA / NASA",
+      "launchIso": "2020-02-10T04:03:00Z",
+      "launchDisplay": "10 Şubat 2020",
+      "status": "Operasyonel",
+      "operator": "ESA / NASA",
+      "orbit": "Eğik ve eliptik Güneş yörüngesi",
+      "description": "Solar Orbiter, Güneş'i hem uzaktan görüntüleyen hem de uzay aracının bulunduğu ortamı doğrudan ölçen on bilimsel cihazla inceler. Görevin en önemli özelliklerinden biri, Güneş'in Dünya'dan gözlenmesi zor olan kutup bölgelerini giderek daha yüksek enlemlerden incelemesidir.",
+      "mission": "Solar Orbiter; Güneş'in manyetik döngüsünün nasıl oluştuğunu, koronanın neden çok sıcak olduğunu, Güneş rüzgârının nasıl meydana geldiğini ve Güneş'teki olayların heliosferi nasıl etkilediğini araştırır. Venüs yakın geçişlerinden aldığı kütleçekim desteğiyle yörüngesinin eğimini zamanla artırır. Böylece Güneş'in kutup bölgelerini daha doğrudan gözleyebilir.",
+      "instruments": [
+        "EPD",
+        "EUI",
+        "MAG",
+        "Metis",
+        "PHI",
+        "RPW",
+        "SoloHI",
+        "SPICE",
+        "STIX",
+        "SWA"
+      ],
+      "instrumentNote": "Solar Orbiter toplam 10 bilimsel cihaz taşır. Bunların bir bölümü Güneş'i uzaktan görüntülerken bir bölümü uzay aracının çevresindeki manyetik alanı, plazmayı, parçacıkları ve Güneş rüzgârını doğrudan ölçer.",
+      "officialUrl": "https://www.esa.int/Science_Exploration/Space_Science/Solar_Orbiter",
+      "officialLabel": "ESA · Solar Orbiter",
+      "media": [
+        {
+          "src": "/assets/media/sun/spacecraft/solar-orbiter/overview.jpg",
+          "alt": "Solar Orbiter uzay aracı",
+          "caption": "Solar Orbiter"
+        },
+        {
+          "src": "/assets/media/sun/spacecraft/solar-orbiter/observation-1.jpg",
+          "alt": "Solar Orbiter tarafından elde edilen Güneş gözlemi",
+          "caption": "Görevden örnek Güneş gözlemi"
+        }
+      ]
+    },
+
+    "soho": {
+      "name": "SOHO",
+      "kicker": "GÜNEŞ GÖREVİ · ESA / NASA",
+      "launchIso": "1995-12-02T08:08:00Z",
+      "launchDisplay": "2 Aralık 1995",
+      "status": "Operasyonel",
+      "operator": "ESA / NASA · Operasyon NASA GSFC",
+      "orbit": "Güneş-Dünya L1 çevresinde halo yörüngesi",
+      "description": "SOHO, Güneş'in derin iç yapısından dış koronaya ve Güneş rüzgârına kadar çok geniş bir bölgeyi incelemek için geliştirilmiş ESA ve NASA ortak görevidir. Uzay aracı, Dünya'nın yaklaşık 1,5 milyon kilometre Güneş tarafındaki Güneş-Dünya L1 bölgesi çevresinde hareket eder.",
+      "mission": "SOHO, Güneş-Dünya L1 noktası çevresindeki halo yörüngesi sayesinde Güneş'i büyük ölçüde kesintisiz olarak izleyebilir. 1995'ten beri elde ettiği uzun süreli gözlemler; helioseismoloji, korona, Güneş rüzgârı, kuyruklu yıldızlar ve uzay havası araştırmaları açısından son derece değerli bir veri arşivi oluşturmuştur.",
+      "instruments": [
+        "CDS",
+        "CELIAS",
+        "COSTEP",
+        "EIT",
+        "ERNE",
+        "GOLF",
+        "LASCO",
+        "MDI",
+        "SUMER",
+        "SWAN",
+        "UVCS",
+        "VIRGO"
+      ],
+      "instrumentNote": "SOHO başlangıçta 12 bilimsel cihazla fırlatıldı. Görev çok uzun süredir devam ettiği için bu cihazların tamamı günümüzde aktif değildir; ancak SOHO görevi 2026 yılında hâlâ operasyoneldir.",
+      "officialUrl": "https://soho.nascom.nasa.gov/",
+      "officialLabel": "ESA / NASA · SOHO",
+      "media": [
+        {
+          "src": "/assets/media/sun/spacecraft/soho/overview.jpg",
+          "alt": "SOHO uzay aracı",
+          "caption": "SOHO"
+        },
+        {
+          "src": "/assets/media/sun/spacecraft/soho/observation-1.jpg",
+          "alt": "SOHO tarafından elde edilen Güneş gözlemi",
+          "caption": "Görevden örnek Güneş gözlemi"
+        }
+      ]
+    }
+  }
+}

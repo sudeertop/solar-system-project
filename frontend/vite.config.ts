@@ -82,15 +82,14 @@ export default defineConfig(async () => {
       ],
     },
     // Multi-page site: each HTML file is its own entry (no framework router).
+    // The real Sun/Moon/Mars/Saturn modules live in public/pages/ and are served
+    // verbatim (they load Three.js from their own CDN importmap), so they are
+    // deliberately NOT Vite entries.
     build: {
       rollupOptions: {
         input: {
           index: path.resolve(__dirname, "index.html"),
           solarSystem: path.resolve(__dirname, "solar-system.html"),
-          sun: path.resolve(__dirname, "sun.html"),
-          moon: path.resolve(__dirname, "moon.html"),
-          mars: path.resolve(__dirname, "mars.html"),
-          saturn: path.resolve(__dirname, "saturn.html"),
           space101: path.resolve(__dirname, "space101.html"),
         },
       },

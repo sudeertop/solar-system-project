@@ -50,7 +50,7 @@ controls.rotateSpeed = 0.42;
 controls.zoomSpeed = 0.7;
 controls.enablePan = false;
 controls.minDistance = 16;
-controls.maxDistance = 420;
+controls.maxDistance = 900;
 controls.maxPolarAngle = Math.PI * 0.86;
 controls.minPolarAngle = Math.PI * 0.08;
 controls.addEventListener("start", () => {
@@ -182,7 +182,7 @@ function buildBody(spec) {
         blending: THREE.AdditiveBlending,
       }),
     );
-    sprite.scale.setScalar(spec.radius * 6.4);
+    sprite.scale.setScalar(spec.radius * 4);
     holder.add(sprite);
   }
 
@@ -321,6 +321,7 @@ function select(id) {
   selectedId = id;
   bodies.forEach((b, key) => b.label.classList.toggle("is-selected", key === id));
   reticle.visible = true;
+  syncIndex();
   renderBody(id);
 }
 
@@ -328,10 +329,35 @@ function clearSelection() {
   selectedId = null;
   bodies.forEach((b) => b.label.classList.remove("is-selected"));
   reticle.visible = false;
+  syncIndex();
   renderOverview();
 }
 
 document.getElementById("panel-reset").addEventListener("click", clearSelection);
+
+/* ---------- body index (panel) ----------------------------------- */
+
+const indexEl = document.getElementById("body-index");
+
+BODY_GEOMETRY.forEach((spec) => {
+  const item = document.createElement("button");
+  item.type = "button";
+  item.className = "index__item";
+  item.dataset.testid = `index-${spec.id}`;
+  item.dataset.body = spec.id;
+  item.dataset.active = "false";
+  item.innerHTML =
+    `<span class="index__dot"></span>${spec.name.toLocaleUpperCase("tr-TR")}` +
+    (spec.mode === "page" ? '<span class="index__mark">↗</span>' : "");
+  item.addEventListener("click", () => select(spec.id));
+  indexEl.appendChild(item);
+});
+
+function syncIndex() {
+  indexEl.querySelectorAll(".index__item").forEach((el) => {
+    el.dataset.active = String(el.dataset.body === selectedId);
+  });
+}
 
 /* ---------- pointer picking ------------------------------------- */
 
@@ -372,15 +398,39 @@ canvas.addEventListener("pointermove", (e) => {
 
 /* ---------- loop ------------------------------------------------- */
 
-/* Time is compressed: rate scales with period^-0.5 so ordering (inner planets
-   faster than outer) is preserved while Neptune still visibly moves. */
+/* Time is compressed, not linear: angular rate scales with period^-0.7.
+   Real periods (^-1) would leave Neptune frozen for the whole visit; equal
+   speeds would be a lie. At 0.7 the contrast stays large and honest —
+   Mercury runs ~2.7x faster than Earth, Neptune ~36x slower — and every
+   planet still visibly moves. */
 const BASE_RATE = 0.34;
+const RATE_EXPONENT = 0.7;
+const LABEL_MIN_X = 96;
+/* Measured from the rendered label, not guessed: the gap must exceed the label's
+   own height or the boxes still overlap and the topmost one steals the click.
+   Recomputed on resize because the mobile breakpoint enlarges touch padding. */
+let labelMinY = 20;
+/* Narrow viewports cannot absorb a de-collision stack: nudging every inner
+   label down builds a vertical column that no longer points at any planet,
+   which is worse than not labelling them. There we CULL instead of stack. */
+let compact = false;
+
+function measureLabelHeight() {
+  const first = labelLayer.querySelector(".label");
+  const h = first ? first.offsetHeight : 0;
+  labelMinY = Math.max(h + 3, 16);
+  compact = window.innerWidth <= 860;
+}
+/** Reused each frame for label layout — allocated once, never per-frame. */
+const placed = [];
 const projected = new THREE.Vector3();
 const clock = new THREE.Clock();
 
 function updateLabels() {
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
+  placed.length = 0;
+
   bodies.forEach((entry) => {
     entry.mesh.getWorldPosition(projected);
     const dist = projected.distanceTo(camera.position);
@@ -392,11 +442,49 @@ function updateLabels() {
       return;
     }
     if (el.style.visibility === "hidden") el.style.visibility = "";
-    const x = (projected.x * 0.5 + 0.5) * w + entry.offset[0];
-    const y = (-projected.y * 0.5 + 0.5) * h + entry.offset[1];
-    el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
-    el.style.opacity = dist > 400 ? "0.25" : "1";
+    placed.push({
+      el,
+      id: entry.spec.id,
+      culled: false,
+      x: (projected.x * 0.5 + 0.5) * w + entry.offset[0],
+      y: (-projected.y * 0.5 + 0.5) * h + entry.offset[1],
+      dist,
+    });
   });
+
+  /* De-collide vertically. With AU-derived spacing the four inner planets project
+     within a few dozen pixels of each other, so without this their labels overlap
+     and the wrong one receives the click. Nudge, never hide.
+     Order is the fixed Sun-outward body order (not sorted by y): a stable order
+     means a label keeps its slot frame to frame instead of swapping with its
+     neighbour, which would make it a moving click target. */
+  for (let i = 1; i < placed.length; i++) {
+    for (let j = 0; j < i; j++) {
+      if (placed[j].culled) continue;
+      if (
+        Math.abs(placed[i].x - placed[j].x) < LABEL_MIN_X &&
+        Math.abs(placed[i].y - placed[j].y) < labelMinY
+      ) {
+        if (compact && placed[i].id !== selectedId) {
+          placed[i].culled = true; // keep the scene honest rather than tidy
+          break;
+        }
+        placed[i].y = placed[j].y + labelMinY;
+      }
+    }
+  }
+
+  for (const p of placed) {
+    if (p.culled) {
+      if (p.el.style.visibility !== "hidden") p.el.style.visibility = "hidden";
+      continue;
+    }
+    // Flip to the left of the body when the label would run past the viewport edge.
+    const lw = p.el.offsetWidth;
+    const x = p.x + lw > w - 6 ? p.x - lw - 14 : p.x;
+    p.el.style.transform = `translate3d(${x.toFixed(1)}px, ${p.y.toFixed(1)}px, 0)`;
+    p.el.style.opacity = p.dist > 700 ? "0.3" : "1";
+  }
 }
 
 function tick() {
@@ -405,7 +493,7 @@ function tick() {
     bodies.forEach((entry) => {
       const { spec, pivot, mesh } = entry;
       if (spec.periodDays) {
-        pivot.rotation.y += (dt * BASE_RATE) / Math.sqrt(spec.periodDays / 365.25);
+        pivot.rotation.y += (dt * BASE_RATE) / Math.pow(spec.periodDays / 365.25, RATE_EXPONENT);
       }
       mesh.rotation.y += dt * (spec.surface === "bands" ? 0.22 : 0.09);
     });
@@ -431,6 +519,7 @@ function resize() {
   renderer.setSize(w, h, false);
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
+  measureLabelHeight();
   if (!userTookOver) frameSystem();
 }
 
